@@ -1,0 +1,3 @@
+admin:
+    resource:   @"ExamAdminBundle\Controller"
+    type    :   annotation
