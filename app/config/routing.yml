@@ -1,0 +1,3 @@
+WebBundle:
+  resource: "@ExamWebBundle/Controller"
+  type: annotation
