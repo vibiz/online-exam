@@ -26,7 +26,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts 'js/front.js' %}
+    {% javascripts
+        'js/timer.js'
+        'js/front.js'
+    %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

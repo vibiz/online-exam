@@ -6,23 +6,14 @@
  * To change this template use File | Settings | File Templates.
  */
 
-(function(window, document, $, undefinede) {
+(function(window, document, $) {
 
-    var timer = function( options ) {
-        var opt = $.extend(false, $.fn.timer.default, options);
+    $("#next").on('click', function(){
+        timer.start();
+    });
 
-    };
-
-    timer.prototype.start = function() {
-
-    }
-
-    timer.prototype.stop = function() {
-
-    }
-
-    $.fn.timer.default = {
-        limit: 1000
-    }
+    $("#prev").click(function(){
+        timer.stop();
+    })
 
 })(window, document, jQuery);
