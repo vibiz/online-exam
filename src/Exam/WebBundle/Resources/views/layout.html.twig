@@ -23,3 +23,10 @@
     </div>
     {% block content %}{% endblock %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts 'js/front.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
