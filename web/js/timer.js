@@ -60,7 +60,7 @@
     $("#next").on('click', function(){
 
         timer.stop();
-
+        $(".frozen").show();
         //ajax goes here!
 
         timer.start();
@@ -69,5 +69,5 @@
     $("#prev").click(function(){
         timer.stop();
     })
-
+    $(".frozen").hide();
 })(window, document, jQuery);
