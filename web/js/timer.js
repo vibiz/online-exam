@@ -58,6 +58,11 @@
     timer.start()
 
     $("#next").on('click', function(){
+
+        timer.stop();
+
+        //ajax goes here!
+
         timer.start();
     });
 
