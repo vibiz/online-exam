@@ -8,12 +8,26 @@
 
 (function(window, document, $) {
 
+    var timer = new Timer();
+    timer.start()
+
     $("#next").on('click', function(){
-        timer.start();
+        post();
     });
 
     $("#prev").click(function(){
+        post();
+    });
+
+    function post() {
         timer.stop();
-    })
+        $(".frozen").show();
+
+        setTimeout(function(){
+            $(".frozen").hide(function(){
+                timer.start();
+            });
+        }, 2000);
+    }
 
 })(window, document, jQuery);
