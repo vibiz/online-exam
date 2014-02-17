@@ -22,15 +22,9 @@ class Package extends Entity {
      */
     private $questions;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Exam\DomainBundle\Entity\User\Participant")
-     */
-    private $participants;
-
     public function __construct($name) {
         $this->name = $name;
         $this->questions = new ArrayCollection();
-        $this->participants = new ArrayCollection();
     }
 
     public function addQuestion(Question $question) {
@@ -39,13 +33,5 @@ class Package extends Entity {
 
     public function removeQuestion(Question $question) {
         $this->questions->removeElement($question);
-    }
-
-    public function addParticipant(Participant $participant) {
-        $this->participants->add($participant);
-    }
-
-    public function removeParticipant(Participant $participant) {
-        $this->participants->removeElement($participant);
     }
 }
