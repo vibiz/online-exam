@@ -1,1 +1,35 @@
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets 'css/front.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="medium-9 columns">
+            <h4>BNI EXAM 2014</h4>
+        </div>
+        <div class="medium-3 columns">
+            <div class="user right">
+                <img src="https://cdn1.iconfinder.com/data/icons/free-social-media-icons/48/User.png" id="icon">
+                <span for="icon" class="radius secondary label">Willy Brordus</span>
+            </div>
+        </div>
+        <hr/>
+    </div>
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+        'js/timer.js'
+        'js/front.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
