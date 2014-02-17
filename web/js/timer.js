@@ -9,11 +9,11 @@
     var on = false;
 
     var Timer = function( options ) {
-        opt = $.extend({}, $.fn.default, options);
+        opt = $.extend({}, defaults, options);
     };
 
     function show(tok) {
-        $("#timer").html(tok);
+        document.getElementById('timer').innerHTML = tok;
     }
 
     function formater(number) {
@@ -31,12 +31,11 @@
             on = !on;
             tik = setInterval(function() {
                 show(formater(opt.limit));
-                opt.limit = opt.limit-1;
-
-                if(opt.limit === -1){
+                if(opt.limit < 1){
                     Timer.prototype.stop();
+                }else{
+                    opt.limit = opt.limit-1;
                 }
-
             }, 1000);
         }
     }
@@ -48,6 +47,6 @@
         }
     }
 
-    $.fn.default = {
+    defaults = {
         limit: 3
     }

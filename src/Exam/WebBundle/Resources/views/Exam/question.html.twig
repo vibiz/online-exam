@@ -7,38 +7,43 @@
                 <legend>Exam Question - 1/100</legend>
                 <div class="relative-container">
                     <div class="panel panel-full">
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words ?</p>
+                       <ul class="question-container">
+                           {% for question in 0..5 %}
+                           <li data-id={{ loop.index }}>
+                               <p>{{ loop.index }}Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words ?</p>
 
-                        <div class="choose">
-                            <label>Choose Your Answer : </label>
+                               <div class="choose">
+                                   <label>Choose Your Answer : </label>
 
-                            <label for="pokemonRed">
-                                <input type="radio" name="pokemon" value="Red" id="pokemonRed"> Answer 1
-                            </label>
+                                   <label for="pokemonRed">
+                                       <input type="radio" name="pokemon" value="Red" id="pokemonRed"> Answer 1
+                                   </label>
 
-                            <label for="pokemonBlue">
-                                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"> Answer 2
-                            </label>
+                                   <label for="pokemonBlue">
+                                       <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"> Answer 2
+                                   </label>
 
-                            <label for="pokemonRed1">
-                                <input type="radio" name="pokemon" value="Red" id="pokemonRed1"> Answer 3
-                            </label>
+                                   <label for="pokemonRed1">
+                                       <input type="radio" name="pokemon" value="Red" id="pokemonRed1"> Answer 3
+                                   </label>
 
-                            <label for="pokemonBlue1">
-                                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue1"> Answer 4
-                            </label>
+                                   <label for="pokemonBlue1">
+                                       <input type="radio" name="pokemon" value="Blue" id="pokemonBlue1"> Answer 4
+                                   </label>
 
-                            <label for="pokemonBlue3">
-                                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue3"> Answer 5
-                            </label>
+                                   <label for="pokemonBlue3">
+                                       <input type="radio" name="pokemon" value="Blue" id="pokemonBlue3"> Answer 5
+                                   </label>
 
-                        </div>
+                               </div>
+                           </li>
+                           {% endfor %}
+                       </ul>
                     </div>
 
                     <div class="action row row-nomargin">
-                        <div class="medium-4 columns"><button class="button medium-12 secondary round" id="prev"><i class="fa fa-arrow-circle-o-left"></i> PREVIOUS</button></div>
-                        <div class="medium-4 columns"><button class="button medium-12 radius">SAVE & NEXT</button></div>
-                        <div class="medium-4 columns"><button class="button medium-12 secondary round" id="next">NEXT <i class="fa fa-arrow-circle-o-right"></i></button></div>
+                        <div class="medium-6 columns"><button class="button medium-12 secondary round" id="prev"><i class="fa fa-arrow-circle-o-left"></i> PREVIOUS</button></div>
+                        <div class="medium-6 columns"><button class="button medium-12 secondary round" id="next">NEXT <i class="fa fa-arrow-circle-o-right"></i></button></div>
                     </div>
                     <div class="frozen">
                         <img src="{{ asset('img/loading.gif') }}">
