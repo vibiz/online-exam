@@ -72,4 +72,4 @@ fieldset{
     list-style: none; }
 .question-container>li {
     display: none; }
-.question-container>li.active { display: block }
+.question-container>li.active { display: block; }

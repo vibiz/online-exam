@@ -124,6 +124,6 @@
                 timer.start();
             });
         }, 1000);
-    }
+    } 
 
 })(window, document, jQuery);

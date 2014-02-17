@@ -20,10 +20,18 @@
         if(number % 1 == 0){
             var divisor = 60;
             var min = Math.floor(number/divisor);
-            var sec = Math.floor(number - (min * 60));
+            var sec = doubleZero(Math.floor(number - (min * 60)));
 
-            return min+':'+sec;
+            return doubleZero(min)+':'+sec;
         }
+    }
+
+    function doubleZero(number) {
+        if(number.toString().length == 1) {
+            return "0"+number;
+        }
+
+        return number;
     }
 
     Timer.prototype.start = function() {
