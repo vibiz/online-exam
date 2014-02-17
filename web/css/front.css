@@ -1,17 +1,4 @@
-body {
-    background-image: -webkit-gradient(
-        linear,
-        right bottom,
-        right bottom,
-        color-stop(0, #FFFFFF),
-        color-stop(1, #F4F7F7),
-        color-stop(1, #FFFFFF)
-    );
-    background-image: -o-linear-gradient(right bottom, #FFFFFF 0%, #F4F7F7 100%, #FFFFFF 100%);
-    background-image: -moz-linear-gradient(right bottom, #FFFFFF 0%, #F4F7F7 100%, #FFFFFF 100%);
-    background-image: -webkit-linear-gradient(right bottom, #FFFFFF 0%, #F4F7F7 100%, #FFFFFF 100%);
-    background-image: -ms-linear-gradient(right bottom, #FFFFFF 0%, #F4F7F7 100%, #FFFFFF 100%);
-    background-image: linear-gradient(to right bottom, #FFFFFF 0%, #F4F7F7 100%, #FFFFFF 100%); }
+table tr.even, table tr.alt, table tr:nth-of-type(even){ background-color: transparent }
 .panel-full {
     min-height: 350px; }
 fieldset,
