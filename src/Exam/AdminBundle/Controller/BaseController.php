@@ -37,4 +37,7 @@ abstract class BaseController extends Controller {
         return $realView;
     }
 
+    function getBundleName() {
+        return 'ExamAdminBundle';
+    }
 }

@@ -1,0 +1,59 @@
+{% extends 'ExamAdminBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        '@ExamAdminBundle/Resources/public/css/bootstrap/bootstrap-datepicker.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Create New Participant</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <form class="form-horizontal" action="/admin/participants/create">
+                        <fieldset>
+                            <legend>Complete Below Data</legend>
+                            <div class="control-group">
+                                <label class="control-label" for="name">Name</label>
+                                <div class="controls">
+                                    <input type="text" name="name" id="name" class="span6"/>
+                                    <p class="help-block">Will be shown as participant's name</p>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="dob">Birthdate</label>
+                                <div class="controls">
+                                    <input type="text" class="input-xlarge datepicker" id="dob" value="02/16/12">
+                                    <p class="help-block">Important for first time password</p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+    '@ExamAdminBundle/Resources/public/js/bootstrap/bootstrap-datepicker.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(".datepicker").datepicker();
+    </script>
+{% endblock %}

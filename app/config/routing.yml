@@ -1,5 +1,5 @@
 admin:
-    resource:   @"ExamAdminBundle\Controller"
+    resource:   "@ExamAdminBundle/Controller"
     type    :   annotation
 
 WebBundle:
