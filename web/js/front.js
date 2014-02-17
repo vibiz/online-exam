@@ -12,22 +12,76 @@
     timer.start()
 
     $items = $(".question-container>li");
+    $paletteItems = $(".palette-container>li");
 
     currentId = getId($items.first().addClass('active'));
 
-    $("#next").on('click', function(){
-        post();
-        $question = getNextQuestion();
-        currentId = getId(getNextQuestion().addClass('active'));
-        $items.not($question).removeAttr('class');
-    });
+    checkControlState();
 
-    $("#prev").click(function(){
+    $("#controller-prev").click(function() {
         post();
         $question = getPrevQuestion();
         currentId = getId(getPrevQuestion().addClass('active'));
         $items.not($question).removeAttr('class');
+
+        checkControlState();
     });
+
+    $("#controller-next").on('click', function() {
+        post();
+        $question = getNextQuestion();
+        currentId = getId(getNextQuestion().addClass('active'));
+        $items.not($question).removeAttr('class');
+
+        checkControlState();
+    });
+
+    function checkControlState() {
+        if(currentId === 1) {
+            disabledPrevControl();
+        } else {
+            enabledPrevControl();
+        }
+
+        if(currentId > getTotalQuestion()-1) {
+            disabledNextControl();
+        } else {
+            enabledNextControl();
+        }
+
+        $(".question-count").html("Exam Question - "+getCurrentId()+"/"+getTotalQuestion());
+
+        checkPaletteState();
+    }
+
+    function checkPaletteState() {
+        var curentPalette = findPalette(getCurrentId()).addClass('current');
+        $paletteItems.not(curentPalette).removeClass('current');
+    }
+
+    function enabledPrevControl() {
+        enabled($("#controller-prev"));
+    }
+
+    function disabledPrevControl() {
+        disabled($("#controller-prev"));
+    }
+
+    function enabledNextControl() {
+        enabled($("#controller-next"));
+    }
+
+    function disabledNextControl() {
+        disabled($("#controller-next"));
+    }
+
+    function enabled($controller) {
+        return $controller.removeClass('disabled').removeAttr('disabled');
+    }
+
+    function disabled($controller) {
+        return $controller.addClass('disabled').attr('disabled', 'disabled');
+    }
 
     function getQuestion() {
         return findElementByData(currentId);
@@ -45,8 +99,20 @@
         return $el.data('id');
     }
 
+    function getCurrentId() {
+        return getId(getQuestion());
+    }
+
     function findElementByData(id) {
         return $items.parent().find("[data-id='"+id+"']");
+    }
+
+    function findPalette(id) {
+        return $paletteItems.parent().find("[data-id='"+id+"']");
+    }
+
+    function getTotalQuestion() {
+        return $items.length;
     }
 
     function post() {
@@ -54,10 +120,10 @@
         $(".frozen").show();
 
         setTimeout(function(){
-            $(".frozen").hide(function(){
+            $(".frozen").fadeOut(function(){
                 timer.start();
             });
-        }, 2000);
+        }, 1000);
     }
 
 })(window, document, jQuery);

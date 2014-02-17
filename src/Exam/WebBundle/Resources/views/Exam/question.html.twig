@@ -4,11 +4,11 @@
     <div class="row">
         <div class="medium-8 columns question">
             <fieldset>
-                <legend>Exam Question - 1/100</legend>
+                <legend><span class="question-count"></span></legend>
                 <div class="relative-container">
                     <div class="panel panel-full">
                        <ul class="question-container">
-                           {% for question in 0..5 %}
+                           {% for question in 0..35 %}
                            <li data-id={{ loop.index }}>
                                <p>{{ loop.index }}Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words ?</p>
 
@@ -42,8 +42,8 @@
                     </div>
 
                     <div class="action row row-nomargin">
-                        <div class="medium-6 columns"><button class="button medium-12 secondary round" id="controller-prev"><i class="fa fa-arrow-circle-o-left"></i> PREVIOUS</button></div>
-                        <div class="medium-6 columns"><button class="button medium-12 secondary round" id="controller-next">NEXT <i class="fa fa-arrow-circle-o-right"></i></button></div>
+                        <div class="medium-6 columns"><button class="button medium-12 secondary radius" id="controller-prev"><i class="fa fa-arrow-circle-o-left"></i> PREVIOUS</button></div>
+                        <div class="medium-6 columns"><button class="button medium-12 secondary radius" id="controller-next">NEXT <i class="fa fa-arrow-circle-o-right"></i></button></div>
                     </div>
                     <div class="frozen">
                         <img src="{{ asset('img/loading.gif') }}">
@@ -67,7 +67,7 @@
                 <legend>Question Palette</legend>
                 <ul class="palette-container">
                     {% for item in 1..35 %}
-                        <li>{{ item }}</li>
+                        <li data-id={{ loop.index }}>{{ item }}</li>
                     {% endfor %}
                 </ul>
             </fieldset>
