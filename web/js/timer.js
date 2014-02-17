@@ -13,7 +13,7 @@
     };
 
     function show(tok) {
-        $("#timer").html(tok);
+        document.getElementById('timer').innerHTML = tok;
     }
 
     function formater(number) {
