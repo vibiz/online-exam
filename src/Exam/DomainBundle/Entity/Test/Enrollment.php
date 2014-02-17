@@ -23,12 +23,12 @@ class Enrollment extends Entity {
     private $package;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $startedOn;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $finishedOn;
 
@@ -40,12 +40,15 @@ class Enrollment extends Entity {
     public function __construct(Participant $participant, Package $package) {
         $this->participant = $participant;
         $this->package = $package;
-        $this->startedOn = new \DateTime('NOW');
         $this->attempts = new ArrayCollection();
     }
 
     public function addAttempts(Attempt $attempt) {
         $this->attempts->add($attempt);
+    }
+
+    public function start() {
+        $this->startedOn = new \DateTime('NOW');
     }
 
     public function finish() {
@@ -56,5 +59,21 @@ class Enrollment extends Entity {
         return $this->attempts->filter(function(Attempt $attempt) use($question) {
             return $attempt->getQuestion() === $question;
         });
+    }
+
+    public function getStartedOn() {
+        return $this->startedOn;
+    }
+
+    public function getFinishedOn() {
+        return $this->finishedOn;
+    }
+
+    public function isStarted() {
+        return isset($this->startedOn);
+    }
+
+    public function isFinished() {
+        return isset($this->finishedOn);
     }
 }
