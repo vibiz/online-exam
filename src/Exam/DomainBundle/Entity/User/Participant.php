@@ -10,6 +10,11 @@ use Exam\DomainBundle\Entity\Entity;
  */
 class Participant extends Entity {
     /**
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $name;
@@ -20,11 +25,13 @@ class Participant extends Entity {
     private $dob;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $registrationId;
 
-    public function __construct($name, $dob) {
+    public function __construct(User $user, $registrationId, $name, $dob) {
+        $this->user = $user;
+        $this->registrationId = $registrationId;
         $this->name = $name;
         $this->dob = $dob;
     }
