@@ -6,8 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-(function(window, document, $) {
-
     var on = false;
 
     var Timer = function( options ) {
@@ -51,23 +49,5 @@
     }
 
     $.fn.default = {
-        limit: 150
+        limit: 3
     }
-
-    var timer = new Timer();
-    timer.start()
-
-    $("#next").on('click', function(){
-
-        timer.stop();
-        $(".frozen").show();
-        //ajax goes here!
-
-        timer.start();
-    });
-
-    $("#prev").click(function(){
-        timer.stop();
-    })
-    $(".frozen").hide();
-})(window, document, jQuery);
