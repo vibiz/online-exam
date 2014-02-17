@@ -51,23 +51,28 @@
     }
 
     $.fn.default = {
-        limit: 150
+        limit: 3
     }
 
     var timer = new Timer();
     timer.start()
 
     $("#next").on('click', function(){
-
-        timer.stop();
-        $(".frozen").show();
-        //ajax goes here!
-
-        timer.start();
+        post();
     });
 
     $("#prev").click(function(){
+        post();
+    });
+
+    function post() {
         timer.stop();
-    })
-    $(".frozen").hide();
+        $(".frozen").show();
+
+        setTimeout(function(){
+            $(".frozen").hide(function(){
+                timer.start();
+            });
+        }, 2000);
+    }
 })(window, document, jQuery);
