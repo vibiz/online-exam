@@ -30,13 +30,13 @@
         if(!on) {
             on = !on;
             tik = setInterval(function() {
-                show(formater(opt.limit));
                 opt.limit = opt.limit-1;
 
-                if(opt.limit === -1){
+                if(opt.limit < 0){
                     Timer.prototype.stop();
+                }else{
+                    show(formater(opt.limit));
                 }
-
             }, 1000);
         }
     }
