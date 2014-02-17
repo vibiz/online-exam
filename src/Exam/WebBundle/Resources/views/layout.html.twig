@@ -3,7 +3,10 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    {% stylesheets 'css/front.css' %}
+    {% stylesheets
+        'css/foundation.css'
+        'css/front.css'
+    %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}
@@ -29,6 +32,7 @@
     {% javascripts
         'js/timer.js'
         'js/front.js'
+        'js/foundation.min.js'
     %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}

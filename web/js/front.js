@@ -11,13 +11,43 @@
     var timer = new Timer();
     timer.start()
 
+    $items = $(".question-container>li");
+
+    currentId = getId($items.first().addClass('active'));
+
     $("#next").on('click', function(){
         post();
+        $question = getNextQuestion();
+        currentId = getId(getNextQuestion().addClass('active'));
+        $items.not($question).removeAttr('class');
     });
 
     $("#prev").click(function(){
         post();
+        $question = getPrevQuestion();
+        currentId = getId(getPrevQuestion().addClass('active'));
+        $items.not($question).removeAttr('class');
     });
+
+    function getQuestion() {
+        return findElementByData(currentId);
+    }
+
+    function getNextQuestion() {
+        return getQuestion().next();
+    }
+
+    function getPrevQuestion() {
+        return getQuestion().prev();
+    }
+
+    function getId($el) {
+        return $el.data('id');
+    }
+
+    function findElementByData(id) {
+        return $items.parent().find("[data-id='"+id+"']");
+    }
 
     function post() {
         timer.stop();
