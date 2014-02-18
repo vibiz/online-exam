@@ -9,9 +9,11 @@
 
 namespace Exam\WebBundle\Service;
 
+use Exam\DomainBundle\Repository\PackageRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\HttpFoundation\Session\Session;
 use JMS\DiExtraBundle\Annotation\Service;
+use JMS\DiExtraBundle\Annotation\Inject;
 
 /**
  * Class PackageService
@@ -20,13 +22,19 @@ use JMS\DiExtraBundle\Annotation\Service;
  */
 class PackageService {
 
-    private $session;
+    private $session,
+            $repo;
 
     /**
-     * @InjectParams
+     * @InjectParams({
+     *      "session" = @Inject("session"),
+     *      "repo" = @Inject("packageRepo")
+     * })
      */
-    public function __construct(Session $session) {
+    public function __construct(Session $session,
+                                PackageRepository $repo) {
         $this->session = $session;
+        $this->repo = $repo;
     }
 
     public function hasSelectPackage() {
@@ -43,6 +51,10 @@ class PackageService {
         if($this->hasSelectPackage()) {
             $this->session->remove('package');
         }
+    }
+
+    public function getCurrentPackage() {
+        return $this->repo->find($this->session->get('package'));
     }
 
 }
