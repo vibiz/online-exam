@@ -12,12 +12,7 @@ use Exam\DomainBundle\Entity\Test\Option;
  */
 class Question extends Entity {
     /**
-     * @ORM\ManyToOne(targetEntity="Package", cascade={"persist"})
-     */
-    private $package;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Option", mappedBy="id")
+     * @ORM\ManyToMany(targetEntity="Option", cascade={"persist"}, inversedBy="questions")
      */
     private $options;
 
