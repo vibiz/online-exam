@@ -59,16 +59,24 @@ class ExamController extends BaseController {
         }
 
         if(!$this->packageService->hasSelectPackage()) {
-            return $this->render('ExamWebBundle:Exam:enrollment.html.twig');
+            return $this->render('ExamWebBundle:Exam:enrollment.html.twig', [
+                "all" => $this->enrollmentRepo->getEnrollments()
+            ]);
         }
-
-        return $this->render('ExamWebBundle:Exam:question.html.twig');
+        var_dump($this->packageService->getCurrentPackage()->getQuestions()->getOptions());exit;
+        return $this->render('ExamWebBundle:Exam:question.html.twig', [
+            "package" => $this->packageService->getCurrentPackage()
+        ]);
     }
 
     /**
      * @Route("/exam/{packageId}")
      */
     public function setPackage($packageId) {
+        if(!$this->service->isLogin()) {
+            return $this->redirect('/login');
+        }
+
         $this->packageService->setPackage($packageId);
 
         return $this->redirect("/exam");

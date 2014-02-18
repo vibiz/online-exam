@@ -9,9 +9,13 @@
 
 namespace Exam\WebBundle\Service;
 
+use Exam\DomainBundle\Entity\User\User;
+use Exam\DomainBundle\Repository\ParticipantRepository;
+use Exam\DomainBundle\Repository\UserRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\HttpFoundation\Session\Session;
 use JMS\DiExtraBundle\Annotation\Service;
+use JMS\DiExtraBundle\Annotation\Inject;
 
 /**
  * Class LoginService
@@ -19,25 +23,36 @@ use JMS\DiExtraBundle\Annotation\Service;
  * @Service("loginService")
  */
 class LoginService {
-    private $session;
+    private $session,
+            $userRepo,
+            $repo;
 
     /**
-     * @InjectParams
+     * @InjectParams({
+     *      "session" = @Inject("session"),
+     *      "userRepo" = @Inject("userRepo"),
+     *      "repo" = @Inject("participantRepo")
+     * })
      */
-    public function __construct(Session $session) {
+    public function __construct(Session $session,
+                                UserRepository $userRepo,
+                                ParticipantRepository $repo) {
         $this->session = $session;
+        $this->userRepo = $userRepo;
+        $this->repo = $repo;
     }
 
     public function checkParticipant($username, $password) {
         if($username == 'test') {
             if($password == 'test') {
-                $this->session->set('user', $username);
+                $participant = $this->getParticipant($this->getUser($username));
+                $this->session->set('participant', $participant->getId());
             }
         }
     }
 
     public function isLogin() {
-        return $this->session->has('user');
+        return $this->session->has('participant');
     }
 
     public function logout() {
@@ -46,4 +61,15 @@ class LoginService {
         }
     }
 
+    public function getUser($username) {
+        return $this->userRepo->findOneBy(array('username' => $username));
+    }
+
+    public function getParticipant(User $user) {
+        return $this->repo->findOneBy(array('user' => $user));
+    }
+
+    public function getCurrentParticipant() {
+        return $this->repo->find($this->session->get('participant'));
+    }
 }

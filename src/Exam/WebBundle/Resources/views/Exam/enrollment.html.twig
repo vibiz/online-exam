@@ -13,14 +13,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for package in 0..4 %}
+            {% if all %}
+                {% for enrollment in all %}
                 <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>Package {{ loop.index }}</td>
-                    <td><span class="label secondary">Not Complete</span></td>
-                    <td><a href="/exam/1" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
+                    <td>{{ enrollment.package.id }}</td>
+                    <td>{{ enrollment.package.name }}</td>
+                    <td><span class="label secondary">{{ enrollment.finished ? 'complete' : 'not complete'}}</span></td>
+                    <td><a href="/exam/{{ enrollment.id }}" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
                 </tr>
                 {% endfor %}
+             {% else %}
+                <tr style="text-align: center">
+                    <td colspan="4">No Package</td>
+                </tr>
+             {% endif %}
             </tbody>
         </table>
     </div>

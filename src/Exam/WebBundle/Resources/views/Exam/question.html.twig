@@ -8,16 +8,16 @@
                 <div class="relative-container">
                     <div class="panel panel-full">
                        <ul class="question-container">
-                           {% for question in 0..35 %}
+                           {% for question in package.questions %}
                            <li data-id={{ loop.index }}>
-                               <p>{{ loop.index }}Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words ?</p>
+                               <p>{{ question.description }}</p>
 
                                <div class="choose">
                                    <label>Choose Your Answer : </label>
 
-                                   {% for option in 0..4 %}
-                                   <label for="{{ "opt"~loop.index }}">
-                                       <input type="radio" name="pokemon" value="Red" id="option11"> Answer {{ loop.index }}
+                                   {% for option in question.options %}
+                                   <label for="">
+                                       <input type="radio" name="pokemon" value="Red" id="option11">
                                    </label>
                                    {% endfor %}
 
