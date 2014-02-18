@@ -77,4 +77,8 @@ class Enrollment extends Entity {
     public function isFinished() {
         return isset($this->finishedOn);
     }
+
+    public function getPackage() {
+        return $this->package;
+    }
 }
