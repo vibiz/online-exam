@@ -1,0 +1,30 @@
+{% extends 'ExamWebBundle::loginLayout.html.twig' %}
+
+{% block body %}
+    <form class="login-form" method="post">
+        <div class="row">
+            <div class="small-5 small-centered columns">
+                <fieldset>
+                    <legend>Participant Login</legend>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="right inline">Username</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="right-label" name="participant-id" placeholder="Participant ID">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="right inline">Password</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="password" id="right-label" name="participant-password" placeholder="Password">
+                        </div>
+                    </div>
+                    <button type="submit" class="tiny pull-right"><i class="fa fa-key"></i> LOGIN</button>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+{% endblock %}

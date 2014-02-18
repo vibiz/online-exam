@@ -9,10 +9,15 @@
 
 namespace Exam\WebBundle\Controller;
 
+use Exam\WebBundle\Service\LoginService;
+use Exam\WebBundle\Service\PackageService;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class ExamController
@@ -20,25 +25,52 @@ use Exam\DomainBundle\Repository\EnrollmentRepository;
  */
 class ExamController extends BaseController {
 
-    private $enrollmentRepo;
+    private $enrollmentRepo,
+            $session,
+            $service,
+            $packageService;
 
     /**
      * @InjectParams({
-     *      "enrollmentRepo" = @Inject("enrollmentRepo")
+     *      "enrollmentRepo" = @Inject("enrollmentRepo"),
+     *      "session" = @Inject("session"),
+     *      "service" = @Inject("loginService"),
+     *      "packageService" = @Inject("packageService")
      * })
      */
-    public function __construct(EnrollmentRepository $enrollmentRepo) {
+    public function __construct(EnrollmentRepository $enrollmentRepo,
+                                Session $session,
+                                LoginService $service,
+                                PackageService $packageService) {
         $this->enrollmentRepo = $enrollmentRepo;
+        $this->session = $session;
+        $this->service = $service;
+        $this->packageService = $packageService;
     }
 
 
     /**
-     * @Route("/")
+     * @Route("/exam")
+     * @Method({"GET"})
      */
     public function startExam() {
+        if(!$this->service->isLogin()) {
+            return $this->redirect('/login');
+        }
+
+        if(!$this->packageService->hasSelectPackage()) {
+            return $this->render('ExamWebBundle:Exam:enrollment.html.twig');
+        }
+
         return $this->render('ExamWebBundle:Exam:question.html.twig');
     }
 
+    /**
+     * @Route("/exam/{packageId}")
+     */
+    public function setPackage($packageId) {
+        $this->packageService->setPackage($packageId);
 
-
+        return $this->redirect("/exam");
+    }
 }

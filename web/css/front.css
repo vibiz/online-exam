@@ -15,9 +15,9 @@ fieldset{
     margin-right: 0 !important; }
 
 .user {
-    margin-top: 0.2rem;
+    margin-top: 0.6rem;
     margin-bottom: 0.5rem; }
-.user>img {
+.user>a>img {
     height: 28px; }
 .user>label {
     display: inline-block; }
@@ -73,3 +73,13 @@ fieldset{
 .question-container>li {
     display: none; }
 .question-container>li.active { display: block; }
+.no-margin { margin: 0 !important; }
+.push-right { float: right }
+.push-left { float: left }
+
+
+.login-form {
+    position: relative;
+    top: 20%; }
+
+legend { background: transparent !important; }

@@ -1,11 +1,27 @@
 {% extends 'ExamWebBundle::layout.html.twig' %}
 
 {% block content %}
-
-    <form action="/" method="post">
-        <select>
-            <option></option>
-        </select>
-    </form>
-
+    <div class="row">
+        <h4>Select Package:</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Package Name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for package in 0..4 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>Package {{ loop.index }}</td>
+                    <td><span class="label secondary">Not Complete</span></td>
+                    <td><a href="/exam/1" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
