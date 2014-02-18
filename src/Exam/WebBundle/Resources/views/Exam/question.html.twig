@@ -1,6 +1,7 @@
 {% extends 'ExamWebBundle::layout.html.twig' %}
 
 {% block content %}
+    {% set questions = package.questions %}
     <div class="row">
         <div class="medium-8 columns question">
             <fieldset>
@@ -8,17 +9,18 @@
                 <div class="relative-container">
                     <div class="panel panel-full">
                        <ul class="question-container">
-                           {% for question in package.questions %}
-                           <li data-id={{ loop.index }}>
+                           {% for question in questions %}
+                           <li data-id={{ question.id }}>
                                <p>{{ question.description }}</p>
 
                                <div class="choose">
                                    <label>Choose Your Answer : </label>
 
                                    {% for option in question.options %}
-                                   <label for="">
-                                       <input type="radio" name="pokemon" value="Red" id="option11">
-                                   </label>
+                                       {% set opt = "opt"~option.id %}
+                                       <label for="{{ opt }}">
+                                           <input type="radio" name="options[]" value="{{ option.description }}" id="{{ opt }}"> {{ option.description }}
+                                       </label>
                                    {% endfor %}
 
                                </div>
@@ -52,8 +54,8 @@
             <fieldset>
                 <legend>Question Palette</legend>
                 <ul class="palette-container">
-                    {% for item in 1..35 %}
-                        <li data-id={{ loop.index }}>{{ item }}</li>
+                    {% for i in 1..questions.count %}
+                        <li data-id={{ i }}>{{ i }}</li>
                     {% endfor %}
                 </ul>
             </fieldset>
