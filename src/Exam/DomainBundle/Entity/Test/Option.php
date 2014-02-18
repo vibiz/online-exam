@@ -10,7 +10,7 @@ use Exam\DomainBundle\Entity\Entity;
  */
 class Option extends Entity {
     /**
-     * @ORM\ManyToOne(targetEntity="Question", inversedBy="options")
+     * @ORM\OneToOne(targetEntity="Question", inversedBy="options", cascade={"persist"})
      */
     private $question;
 

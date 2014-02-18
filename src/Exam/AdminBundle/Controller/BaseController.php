@@ -21,18 +21,18 @@ abstract class BaseController extends Controller {
     }
 
     private function getView($view) {
-        $realView = str_replace(array('/', '\\'), BUNDLE_SEPARATOR, $view);
-        $realView = explode(BUNDLE_SEPARATOR, $realView);
+        $realView = str_replace('\\', '/', $view);
+        $realView = explode('/', $realView);
+        $templateName = array_pop($realView);
 
         array_walk($realView, function(&$piece){
             $piece = strpos($piece, '.') ? $piece : ucfirst($piece);
         });
 
-        $realView = implode(BUNDLE_SEPARATOR, $realView);
-
-        if (strpos($view, $this->getBundleName()) === false) {
-            $realView = $this->getBundleName().BUNDLE_SEPARATOR.$realView;
-        }
+        $realView = implode('/', $realView).BUNDLE_SEPARATOR.$templateName;
+        $realView = strpos($realView, $this->getBundleName())
+            ? $realView
+            : $this->getBundleName().BUNDLE_SEPARATOR.$realView;
 
         return $realView;
     }

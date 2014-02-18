@@ -12,7 +12,12 @@ use Exam\DomainBundle\Entity\Test\Option;
  */
 class Question extends Entity {
     /**
-     * @ORM\OneToMany(targetEntity="Exam\DomainBundle\Entity\Test\Option", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="Package", cascade={"persist"})
+     */
+    private $package;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Option", mappedBy="id")
      */
     private $options;
 
@@ -28,8 +33,16 @@ class Question extends Entity {
         $this->description = $description;
     }
 
+    public function getOptions() {
+        return $this->options;
+    }
+
     public function addOption(Option $option) {
         $this->options->add($option);
+    }
+
+    public function removeOption(Option $option) {
+        $this->options->remove($option);
     }
 
     public function setDescription($description) {

@@ -18,7 +18,7 @@ class Package extends Entity {
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Question")
+     * @ORM\ManyToMany(targetEntity="Question", cascade={"persist"})
      */
     private $questions;
 
