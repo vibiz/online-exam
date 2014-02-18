@@ -54,7 +54,7 @@ class EnrollmentService {
         return $this->session->has('enrollment');
     }
 
-    private function setEnrollement($enrollmentId) {
+    private function setEnrollment($enrollmentId) {
         if(!$this->authorizeEnrollmentSession()) {
             $enrollment = $this->enrollmentRepo->findOneBy(array(
                 "id" => $enrollmentId,
@@ -97,7 +97,7 @@ class EnrollmentService {
     public function startEnrollment($enrollmentId) {
         if($this->authorizeEnrollmentSession()) return false;
 
-        $this->setEnrollement($enrollmentId);
+        $this->setEnrollment($enrollmentId);
 
         if($this->getEnrollment()->isStarted()) {
             $this->session->remove('enrollment');
