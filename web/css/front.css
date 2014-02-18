@@ -83,3 +83,4 @@ fieldset{
     top: 20%; }
 
 legend { background: transparent !important; }
+input[type="file"], input[type="checkbox"], input[type="radio"], select { vertical-align: sub; }
