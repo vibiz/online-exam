@@ -73,3 +73,13 @@ fieldset{
 .question-container>li {
     display: none; }
 .question-container>li.active { display: block; }
+.no-margin { margin: 0 !important; }
+.push-right { float: right }
+.push-left { float: left }
+
+
+.login-form {
+    position: relative;
+    top: 20%; }
+
+legend { background: transparent !important; }

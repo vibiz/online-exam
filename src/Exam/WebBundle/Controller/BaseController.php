@@ -10,8 +10,12 @@
 namespace Exam\WebBundle\Controller;
 
 
+use Exam\WebBundle\Service\LoginService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
-class BaseController extends Controller {
+abstract class BaseController extends Controller {
+
 
 }
