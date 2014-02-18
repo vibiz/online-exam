@@ -214,3 +214,10 @@ body {
     width: 25px;
     vertical-align: middle;
 }
+
+[class^="icon-"], [class*=" icon-"] {
+    background-image: url('/img/glyphicons-halflings.png');
+}
+.icon-white {
+    background-image: url('/img/glyphicons-halflings-white.png');
+}

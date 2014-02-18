@@ -38,6 +38,7 @@ class Enrollment extends Entity {
     private $attempts;
 
     public function __construct(Participant $participant, Package $package) {
+        parent::__construct();
         $this->participant = $participant;
         $this->package = $package;
         $this->attempts = new ArrayCollection();

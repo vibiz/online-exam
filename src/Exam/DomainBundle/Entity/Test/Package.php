@@ -23,8 +23,21 @@ class Package extends Entity {
     private $questions;
 
     public function __construct($name) {
+        parent::__construct();
         $this->name = $name;
         $this->questions = new ArrayCollection();
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getQuestions() {
+        return $this->questions;
     }
 
     public function addQuestion(Question $question) {

@@ -20,6 +20,7 @@ class User extends Entity {
     private $password;
 
     public function __construct($username, $password) {
+        parent::__construct();
         $this->username = $username;
         $this->password = md5($password);
     }

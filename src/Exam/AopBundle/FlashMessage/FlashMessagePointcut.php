@@ -1,6 +1,6 @@
 <?php
 
-namespace Vibiz\AopBundle\FlashMessage;
+namespace Exam\AopBundle\FlashMessage;
 
 use Doctrine\Common\Annotations\Reader;
 use JMS\AopBundle\Aop\PointcutInterface;

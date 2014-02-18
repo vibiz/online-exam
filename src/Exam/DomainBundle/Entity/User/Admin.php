@@ -20,6 +20,7 @@ class Admin extends Entity {
     private $name;
 
     public function __construct(User $user, $name) {
+        parent::__construct();
         $this->user = $user;
         $this->name = $name;
     }

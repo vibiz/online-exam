@@ -1,6 +1,6 @@
 <?php
 
-namespace Vibiz\AopBundle\Transactional;
+namespace Exam\AopBundle\Transactional;
 
 use CG\Proxy\MethodInterceptorInterface;
 use CG\Proxy\MethodInvocation;

@@ -5,7 +5,7 @@
     <div class="span12">
         <div class="block">
             <div class="navbar navbar-inner block-header">
-                <div class="muted pull-left">All Participants</div>
+                <div class="muted pull-left">All Packages</div>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
@@ -13,22 +13,20 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Registration Id</th>
                                 <th>Name</th>
-                                <th>Birthdate</th>
+                                <th>Total Questions</th>
                                 <th>Registered On</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% for participant in participants %}
+                        {% for package in packages %}
                             <tr>
-                                <td>{{ participant.id }}</td>
-                                <td>{{ participant.registrationId }}</td>
-                                <td>{{ participant.name }}</td>
-                                <td>{{ participant.dob | date('d-M-Y') }}</td>
-                                <td>{{ participant.createdOn | date('d-M-Y') }}</td>
-                                <td><a href="/admin/participants/edit/{{ participant.id }}"><i class="icon-pencil"></i></a></td>
+                                <td>{{ package.id }}</td>
+                                <td>{{ package.name }}</td>
+                                <td><a href="/admin/packages/{{ package.id }}/questions">{{ package.questions | length }}</a></td>
+                                <td>{{ package.createdOn | date('d-M-Y') }}</td>
+                                <td><a href="/admin/packages/edit/{{ package.id }}"><i class="icon-pencil"></i></a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

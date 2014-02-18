@@ -1,0 +1,21 @@
+{% extends 'ExamAdminBundle::base.html.twig' %}
+
+{% block content %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Package Questions</div>
+                <a href="/admin/packages/{{ package.id }}/questions/add" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> Add Question(s)</a>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <fieldset>
+                        <legend>{{ package.name }}</legend>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

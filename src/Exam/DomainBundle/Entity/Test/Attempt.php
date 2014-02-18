@@ -31,6 +31,7 @@ class Attempt extends Entity {
     private $answeredOn;
 
     public function __construct(Question $question, Option $option) {
+        parent::__construct();
         $this->question = $question;
         $this->answer = $option;
         $this->answeredOn = new \DateTime('NOW');

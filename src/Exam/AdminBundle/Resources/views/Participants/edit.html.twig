@@ -15,39 +15,42 @@
         {% if errorMessage is defined %}<div class="alert alert-error">{{ errorMessage }}</div>{% endif %}
         <div class="block">
             <div class="navbar navbar-inner block-header">
-                <div class="muted pull-left">Create New Participant</div>
+                <div class="muted pull-left">Edit Participant</div>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form class="form-horizontal" action="/admin/participants/create" method="post">
+                    <form class="form-horizontal" action="/admin/participants/edit" method="post">
                         <fieldset>
                             <legend>Complete Below Data</legend>
                             <div class="control-group">
+                                <label class="control-label" for="registration-number">Id</label>
+                                <div class="controls">
+                                    <span>{{ participant.id }}</span>
+                                    <input type="hidden" name="id" id="id" class="span6"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
                                 <label class="control-label" for="registration-number">Registration Number</label>
                                 <div class="controls">
-                                    <input type="text" name="registration-number" id="registration-number" class="span6" required/>
-                                    <span class="loading"></span>
-                                    <span class="help-inline">Registration number is already registered</span>
-                                    <p class="help-block">Participant's registration number</p>
+                                    <p>{{ participant.registrationId }}</p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="name">Name</label>
                                 <div class="controls">
-                                    <input type="text" name="name" id="name" class="span6" required/>
+                                    <input type="text" name="name" id="name" class="span6" value="{{ participant.name }}" required/>
                                     <p class="help-block">Will be shown as participant's name</p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="dob">Birthdate</label>
                                 <div class="controls">
-                                    <input type="text" name="dob" class="input-xlarge datepicker" id="dob" value="{{ "now"|date("m/d/Y") }}">
-                                    <p class="help-block">Important for first time password</p>
+                                    <input type="text" name="dob" class="input-xlarge datepicker" id="dob" value="{{ participant.dob | date("m/d/Y") }}">
+                                    <p class="help-block">Participant password will not be changed</p>
                                 </div>
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">Save</button>
-                                <button type="reset" class="btn">Reset</button>
                             </div>
                         </fieldset>
                     </form>

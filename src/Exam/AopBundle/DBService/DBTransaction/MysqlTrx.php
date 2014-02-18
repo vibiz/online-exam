@@ -13,8 +13,6 @@ use JMS\DiExtraBundle\Annotation\Service;
  */
 class MysqlTrx extends Trx implements ITransaction
 {
-    private $manager;
-
     /**
      * @InjectParams
      */

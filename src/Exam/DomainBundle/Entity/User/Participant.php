@@ -30,6 +30,7 @@ class Participant extends Entity {
     private $registrationId;
 
     public function __construct(User $user, $registrationId, $name, $dob) {
+        parent::__construct();
         $this->user = $user;
         $this->registrationId = $registrationId;
         $this->name = $name;

@@ -20,6 +20,7 @@ class Option extends Entity {
     private $description;
 
     public function __construct($description) {
+        parent::__construct();
         $this->description = $description;
     }
 
