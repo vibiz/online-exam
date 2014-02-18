@@ -16,9 +16,10 @@
                                    <label>Choose Your Answer : </label>
 
                                    {% for option in question.options %}
-                                   <label for="">
-                                       <input type="radio" name="pokemon" value="Red" id="option11">
-                                   </label>
+                                       {% set opt = "opt"~option.id %}
+                                       <label for="{{ opt }}">
+                                           <input type="radio" name="options[]" value="{{ option.description }}" id="{{ opt }}"> {{ option.description }}
+                                       </label>
                                    {% endfor %}
 
                                </div>

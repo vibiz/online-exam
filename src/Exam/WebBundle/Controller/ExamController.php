@@ -63,7 +63,7 @@ class ExamController extends BaseController {
                 "all" => $this->enrollmentRepo->getEnrollments()
             ]);
         }
-        var_dump($this->packageService->getCurrentPackage()->getQuestions()->getOptions());exit;
+
         return $this->render('ExamWebBundle:Exam:question.html.twig', [
             "package" => $this->packageService->getCurrentPackage()
         ]);
