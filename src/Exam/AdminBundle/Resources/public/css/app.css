@@ -221,3 +221,37 @@ body {
 .icon-white {
     background-image: url('/img/glyphicons-halflings-white.png');
 }
+
+.expand {
+    cursor: pointer;
+}
+.sub-table {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+th > em {
+    color: rgba(150, 150, 150, 0.7);
+    font-weight: normal;
+}
+td.text-center,
+th.text-center { text-align: center; }
+table.sub-table { display: none; }
+td form { margin: 0; }
+td form input[type="checkbox"] { margin: 0; }
+tr.masked {
+    position: relative;
+}
+.mask,
+.mask .animation {
+    height: 100%;
+    width: 100%;
+}
+.mask {
+    background: rgba(255, 255, 255, 0.8);
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 2000;
+}
+.mask .animation { background: url('/img/loading.gif') no-repeat center; }
