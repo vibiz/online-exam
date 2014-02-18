@@ -10,6 +10,7 @@
 namespace Exam\WebBundle\Controller;
 
 use Exam\WebBundle\Service\LoginService;
+use Exam\WebBundle\Service\PackageService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,21 +27,25 @@ class ExamController extends BaseController {
 
     private $enrollmentRepo,
             $session,
-            $service;
+            $service,
+            $packageService;
 
     /**
      * @InjectParams({
      *      "enrollmentRepo" = @Inject("enrollmentRepo"),
      *      "session" = @Inject("session"),
-     *      "service" = @Inject("loginService")
+     *      "service" = @Inject("loginService"),
+     *      "packageService" = @Inject("packageService")
      * })
      */
     public function __construct(EnrollmentRepository $enrollmentRepo,
                                 Session $session,
-                                LoginService $service) {
+                                LoginService $service,
+                                PackageService $packageService) {
         $this->enrollmentRepo = $enrollmentRepo;
         $this->session = $session;
         $this->service = $service;
+        $this->packageService = $packageService;
     }
 
 
@@ -53,10 +58,19 @@ class ExamController extends BaseController {
             return $this->redirect('/login');
         }
 
-        if(!$this->session->get('enrollment')){
+        if(!$this->packageService->hasSelectPackage()) {
             return $this->render('ExamWebBundle:Exam:enrollment.html.twig');
         }
 
         return $this->render('ExamWebBundle:Exam:question.html.twig');
+    }
+
+    /**
+     * @Route("/exam/{packageId}")
+     */
+    public function setPackage($packageId) {
+        $this->packageService->setPackage($packageId);
+
+        return $this->redirect("/exam");
     }
 }

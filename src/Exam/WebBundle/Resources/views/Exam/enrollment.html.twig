@@ -18,7 +18,7 @@
                     <td>{{ loop.index }}</td>
                     <td>Package {{ loop.index }}</td>
                     <td><span class="label secondary">Not Complete</span></td>
-                    <td><a href="/exam/1" target="_blank" class="button tiny radius no-margin">Start Exam</a></td>
+                    <td><a href="/exam/1" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
