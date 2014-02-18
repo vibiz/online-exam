@@ -17,6 +17,11 @@ class Question extends Entity {
     private $options;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Option")
+     */
+    private $correctOption;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -38,6 +43,18 @@ class Question extends Entity {
 
     public function removeOption(Option $option) {
         $this->options->remove($option);
+    }
+
+    public function setCorrectOption(Option $option) {
+        if (!$this->options->indexOf($option)) {
+            throw new \Exception("Option is not included in the selected question");
+        }
+
+        $this->correctOption = $option;
+    }
+
+    public function getCorrectOption() {
+        return $this->correctOption;
     }
 
     public function setDescription($description) {
