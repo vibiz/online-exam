@@ -5,6 +5,7 @@
     {% stylesheets
         '@ExamAdminBundle/Resources/public/css/wysiwyg-color.css'
         '@ExamAdminBundle/Resources/public/css/bootstrap/bootstrap-wysihtml5.css'
+        '@ExamAdminBundle/Resources/public/css/uniform.default.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -35,7 +36,9 @@
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Options</label>
-                                <div class="controls"><input type="text" name="options[]" class="span6 last"/></div>
+                                <div class="controls">
+                                    <input type="text" name="options[]" class="span6 last"/>
+                                </div>
                             </div>
                             {% for idx in 0..3 %}
                             <div class="control-group">

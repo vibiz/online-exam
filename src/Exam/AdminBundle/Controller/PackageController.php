@@ -78,6 +78,7 @@ class PackageController extends BaseController {
     /**
      * @Route("/packages/edit")
      * @Method({"POST"})
+     * @Transactional
      */
     public function edit(Request $request) {
         $package = $this->packageRepo->find($request->get('id'));
@@ -91,6 +92,7 @@ class PackageController extends BaseController {
 
             $package->addQuestion($question);
         }
+
         $this->packageRepo->persist($package);
 
         return $this->redirect('/admin/packages');
