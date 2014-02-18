@@ -59,14 +59,4 @@ class LoginController extends Controller {
 
         return $this->redirect('/');
     }
-
-    /**
-     * @Route("/logout")
-     */
-    public function logout() {
-        $this->service->logout();
-
-        return $this->redirect('/');
-    }
-
 }
