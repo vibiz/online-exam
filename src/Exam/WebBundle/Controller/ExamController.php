@@ -9,8 +9,10 @@
 
 namespace Exam\WebBundle\Controller;
 
+use Exam\WebBundle\Service\EnrollmentService;
 use Exam\WebBundle\Service\LoginService;
 use Exam\WebBundle\Service\PackageService;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +20,7 @@ use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Exam\AopBundle\Transactional;
 
 /**
  * Class ExamController
@@ -25,27 +28,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class ExamController extends BaseController {
 
-    private $enrollmentRepo,
-            $session,
-            $service,
-            $packageService;
+    private $service,
+            $enrollmentService;
 
     /**
      * @InjectParams({
-     *      "enrollmentRepo" = @Inject("enrollmentRepo"),
-     *      "session" = @Inject("session"),
      *      "service" = @Inject("loginService"),
-     *      "packageService" = @Inject("packageService")
+     *      "enrollmentService" = @Inject("enrollmentService")
      * })
      */
-    public function __construct(EnrollmentRepository $enrollmentRepo,
-                                Session $session,
-                                LoginService $service,
-                                PackageService $packageService) {
-        $this->enrollmentRepo = $enrollmentRepo;
-        $this->session = $session;
+    public function __construct(LoginService $service,
+                                EnrollmentService $enrollmentService) {
         $this->service = $service;
-        $this->packageService = $packageService;
+        $this->enrollmentService = $enrollmentService;
     }
 
 
@@ -58,26 +53,28 @@ class ExamController extends BaseController {
             return $this->redirect('/login');
         }
 
-        if(!$this->packageService->hasSelectPackage()) {
+        if(!$this->enrollmentService->hasEnrollment()) {
             return $this->render('ExamWebBundle:Exam:enrollment.html.twig', [
-                "all" => $this->enrollmentRepo->getEnrollments()
+                "all" => $this->enrollmentService->getEnrollments()
             ]);
         }
 
         return $this->render('ExamWebBundle:Exam:question.html.twig', [
-            "package" => $this->packageService->getCurrentPackage()
+            "package" => $this->enrollmentService->getCurrentPackage()
         ]);
     }
 
     /**
-     * @Route("/exam/{packageId}")
+     * @Route("/exam/{enrollmentId}")
+     * @Method({"GET"})
+     * @Transactional
      */
-    public function setPackage($packageId) {
+    public function setPackage($enrollmentId) {
         if(!$this->service->isLogin()) {
             return $this->redirect('/login');
         }
 
-        $this->packageService->setPackage($packageId);
+        $this->enrollmentService->startEnrollment($enrollmentId);
 
         return $this->redirect("/exam");
     }

@@ -50,16 +50,22 @@ class Enrollment extends Entity {
 
     public function start() {
         $this->startedOn = new \DateTime('NOW');
+
+        return $this;
     }
 
     public function finish() {
         $this->finishedOn = new \DateTime('NOW');
+
+        return $this;
     }
 
     public function restart() {
         $this->startedOn = new \DateTime('NOW');
         $this->finishedOn = null;
         $this->attempts = new ArrayCollection();
+
+        return $this;
     }
 
     public function getAttemptsFor(Question $question) {
