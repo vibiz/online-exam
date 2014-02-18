@@ -78,4 +78,13 @@ class ExamController extends BaseController {
 
         return $this->redirect("/exam");
     }
+
+    /**
+     * @Route("/exam/attempt/{questionId}/{answerId}")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function addAttempt($questionId, $answerId) {
+        
+    }
 }
