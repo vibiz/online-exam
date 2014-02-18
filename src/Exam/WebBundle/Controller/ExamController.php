@@ -9,6 +9,7 @@
 
 namespace Exam\WebBundle\Controller;
 
+use Exam\DomainBundle\Entity\Test\Attempt;
 use Exam\WebBundle\Service\EnrollmentService;
 use Exam\WebBundle\Service\LoginService;
 use Exam\WebBundle\Service\PackageService;
@@ -80,11 +81,15 @@ class ExamController extends BaseController {
     }
 
     /**
-     * @Route("/exam/attempt/{questionId}/{answerId}")
+     * @Route("/exam/attempt")
      * @Method({"POST"})
      * @Transactional
      */
-    public function addAttempt($questionId, $answerId) {
-        
+    public function addAttempt(Request $request) {
+        if($request->isXmlHttpRequest()) {
+            $param = $request->request;
+            //$attempt = new Attempt();
+
+        }
     }
 }

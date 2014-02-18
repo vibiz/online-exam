@@ -19,7 +19,6 @@
     checkControlState();
 
     $("#controller-prev").click(function() {
-        post();
         $question = getPrevQuestion();
         currentId = getId(getPrevQuestion().addClass('active'));
         $items.not($question).removeAttr('class');
@@ -28,7 +27,6 @@
     });
 
     $("#controller-next").on('click', function() {
-        post();
         $question = getNextQuestion();
         currentId = getId(getNextQuestion().addClass('active'));
         $items.not($question).removeAttr('class');
@@ -36,17 +34,21 @@
         checkControlState();
     });
 
+    $("input[type='radio']").change(function(){
+        post(currentId, getId($(this)));
+    });
+
     function checkControlState() {
         if(currentId === 1) {
-            disabledPrevControl();
+            disabled($("#controller-prev"));
         } else {
-            enabledPrevControl();
+            enabled($("#controller-prev"));
         }
 
         if(currentId > getTotalQuestion()-1) {
-            disabledNextControl();
+            disabled($("#controller-next"));
         } else {
-            enabledNextControl();
+            enabled($("#controller-next"));
         }
 
         $(".question-count").html("Exam Question - "+getCurrentId()+"/"+getTotalQuestion());
@@ -59,22 +61,6 @@
         $paletteItems.not(curentPalette).removeClass('current');
     }
 
-    function enabledPrevControl() {
-        enabled($("#controller-prev"));
-    }
-
-    function disabledPrevControl() {
-        disabled($("#controller-prev"));
-    }
-
-    function enabledNextControl() {
-        enabled($("#controller-next"));
-    }
-
-    function disabledNextControl() {
-        disabled($("#controller-next"));
-    }
-
     function enabled($controller) {
         return $controller.removeClass('disabled').removeAttr('disabled');
     }
@@ -84,7 +70,7 @@
     }
 
     function getQuestion() {
-        return findElementByData(currentId);
+        return $items.parent().find("[data-id='"+currentId+"']");
     }
 
     function getNextQuestion() {
@@ -103,10 +89,6 @@
         return getId(getQuestion());
     }
 
-    function findElementByData(id) {
-        return $items.parent().find("[data-id='"+id+"']");
-    }
-
     function findPalette(id) {
         return $paletteItems.parent().find("[data-id='"+id+"']");
     }
@@ -115,15 +97,21 @@
         return $items.length;
     }
 
-    function post() {
+    function post(questionId, answerId) {
         timer.stop();
         $(".frozen").show();
 
-        setTimeout(function(){
-            $(".frozen").fadeOut(function(){
-                timer.start();
+        var data = {
+            questionId: questionId,
+            answerId: answerId
+        }
+
+        $.post('/exam/attempt', data)
+            .complete(function() {
+                $(".frozen").fadeOut(function(){
+                    timer.start();
+                });
             });
-        }, 1000);
     } 
 
 })(window, document, jQuery);
