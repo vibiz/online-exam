@@ -15,17 +15,13 @@ use Symfony\Component\HttpFoundation\Session\Session;
  * @Service("enrollmentRepo")
  */
 class EnrollmentRepository extends BaseRepository {
-    private $service;
     /**
      * @InjectParams({
-     *      "em" = @Inject("doctrine.orm.entity_manager"),
-     *      "service" = @Inject("loginService")
+     *      "em" = @Inject("doctrine.orm.entity_manager")
      * })
      */
-    public function __construct(EntityManager $em,
-                                LoginService $service) {
+    public function __construct(EntityManager $em) {
         parent::__construct($em);
-        $this->service = $service;
     }
 
     public function findEnrollmentsForPackage(Package $package) {
