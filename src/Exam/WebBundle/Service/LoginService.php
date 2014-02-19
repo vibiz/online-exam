@@ -66,10 +66,6 @@ class LoginService {
         }
     }
 
-    public function getUser($username) {
-        return $this->userRepo->findOneBy(array('username' => $username));
-    }
-
     public function getParticipant(User $user) {
         return $this->repo->findOneBy(array('user' => $user));
     }
