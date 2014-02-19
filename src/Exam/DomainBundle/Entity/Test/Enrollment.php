@@ -18,7 +18,7 @@ class Enrollment extends Entity {
     private $participant;
 
     /**
-     * @ORM\OneToOne(targetEntity="Package")
+     * @ORM\ManyToOne(targetEntity="Package")
      */
     private $package;
 
