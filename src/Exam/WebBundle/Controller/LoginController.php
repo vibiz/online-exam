@@ -55,7 +55,7 @@ class LoginController extends Controller {
         $username = $request->get('participant-id');
         $password = $request->get('participant-password');
 
-        $this->service->checkParticipant($username, $password);
+        $this->service->participantJoin($username, $password);
 
         return $this->redirect('/');
     }
