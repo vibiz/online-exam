@@ -19,16 +19,16 @@
     checkControlState();
 
     $("#controller-prev").click(function() {
-        $question = getPrevQuestion();
-        currentId = getId(getPrevQuestion().addClass('active'));
+        $question = getQuestion().prev();
+        currentId = getId(getQuestion().prev().addClass('active'));
         $items.not($question).removeAttr('class');
 
         checkControlState();
     });
 
     $("#controller-next").on('click', function() {
-        $question = getNextQuestion();
-        currentId = getId(getNextQuestion().addClass('active'));
+        $question = getQuestion().next();
+        currentId = getId(getQuestion().next().addClass('active'));
         $items.not($question).removeAttr('class');
 
         checkControlState();
@@ -51,13 +51,13 @@
             enabled($("#controller-next"));
         }
 
-        $(".question-count").html("Exam Question - "+getCurrentId()+"/"+getTotalQuestion());
+        $(".question-count").html("Exam Question - "+getId(getQuestion())+"/"+getTotalQuestion());
 
         checkPaletteState();
     }
 
     function checkPaletteState() {
-        var curentPalette = findPalette(getCurrentId()).addClass('current');
+        var curentPalette = findPalette(getId(getQuestion())).addClass('current');
         $paletteItems.not(curentPalette).removeClass('current');
     }
 
@@ -73,20 +73,8 @@
         return $items.parent().find("[data-id='"+currentId+"']");
     }
 
-    function getNextQuestion() {
-        return getQuestion().next();
-    }
-
-    function getPrevQuestion() {
-        return getQuestion().prev();
-    }
-
     function getId($el) {
         return $el.data('id');
-    }
-
-    function getCurrentId() {
-        return getId(getQuestion());
     }
 
     function findPalette(id) {
@@ -99,19 +87,24 @@
 
     function post(questionId, answerId) {
         timer.stop();
-        $(".frozen").show();
 
         var data = {
             questionId: questionId,
             answerId: answerId
         }
 
-        $.post('/exam/attempt', data)
+        $.post('/exam/attempt', data, function() {
+            $(".frozen").show();
+        })
             .complete(function() {
-                $(".frozen").fadeOut(function(){
-                    timer.start();
-                });
+            $(".frozen").fadeOut(function() {
+                timer.start();
             });
+
+            if(!(currentId > getTotalQuestion()-1)) {
+                $("#controller-next").click();
+            }
+        });
     } 
 
 })(window, document, jQuery);

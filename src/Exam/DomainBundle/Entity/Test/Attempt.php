@@ -16,12 +16,12 @@ class Attempt extends Entity {
     private $enrollment;
 
     /**
-     * @ORM\OneToOne(targetEntity="Question")
+     * @ORM\ManyToOne(targetEntity="Question")
      */
     private $question;
 
     /**
-     * @ORM\OneToOne(targetEntity="Option")
+     * @ORM\ManyToOne(targetEntity="Option")
      */
     private $answer;
 
@@ -30,10 +30,11 @@ class Attempt extends Entity {
      */
     private $answeredOn;
 
-    public function __construct(Question $question, Option $option) {
+    public function __construct(Enrollment $enrollment, Question $question, Option $option) {
         parent::__construct();
         $this->question = $question;
         $this->answer = $option;
+        $this->enrollment = $enrollment;
         $this->answeredOn = new \DateTime('NOW');
     }
 

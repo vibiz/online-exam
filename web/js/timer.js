@@ -41,6 +41,9 @@
                 show(formater(opt.limit));
                 if(opt.limit < 1){
                     Timer.prototype.stop();
+                    $.post('/exam/enrollment/finished' ,function(response) {
+                        window.location.replace(location.protocol+"//"+location.hostname+response.url);
+                    })
                 }else{
                     opt.limit = opt.limit-1;
                 }
@@ -56,5 +59,5 @@
     }
 
     defaults = {
-        limit: 1800
+        limit: 3
     }

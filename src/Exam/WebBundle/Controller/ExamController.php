@@ -10,11 +10,14 @@
 namespace Exam\WebBundle\Controller;
 
 use Exam\DomainBundle\Entity\Test\Attempt;
+use Exam\WebBundle\Service\AttemptService;
 use Exam\WebBundle\Service\EnrollmentService;
 use Exam\WebBundle\Service\LoginService;
 use Exam\WebBundle\Service\PackageService;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use JMS\DiExtraBundle\Annotation\Inject;
@@ -30,18 +33,22 @@ use Exam\AopBundle\Transactional;
 class ExamController extends BaseController {
 
     private $service,
-            $enrollmentService;
+            $enrollmentService,
+            $attemptService;
 
     /**
      * @InjectParams({
      *      "service" = @Inject("loginService"),
-     *      "enrollmentService" = @Inject("enrollmentService")
+     *      "enrollmentService" = @Inject("enrollmentService"),
+     *      "attemptService" = @Inject("attemptService")
      * })
      */
     public function __construct(LoginService $service,
-                                EnrollmentService $enrollmentService) {
+                                EnrollmentService $enrollmentService,
+                                AttemptService $attemptService) {
         $this->service = $service;
         $this->enrollmentService = $enrollmentService;
+        $this->attemptService = $attemptService;
     }
 
 
@@ -88,8 +95,53 @@ class ExamController extends BaseController {
     public function addAttempt(Request $request) {
         if($request->isXmlHttpRequest()) {
             $param = $request->request;
-            //$attempt = new Attempt();
 
+            $this->attemptService->addAttempt($param->get('questionId'), $param->get('answerId'));
+
+            return new JsonResponse([
+                'status'=> 200
+            ]);
         }
+
+        return new JsonResponse([
+            'status' => 500
+        ]);
     }
+
+    /**
+     * @Route("/exam/enrollment/finished")
+     * @Method({"GET"})
+     */
+    public function sayThanks() {
+        if(!$this->service->isLogin()) {
+            return $this->redirect('/login');
+        }
+
+        if($this->enrollmentService->hasEnrollment()) {
+            return $this->redirect('/exam');
+        }
+
+        return $this->render('ExamWebBundle:Exam:thanks.html.twig');
+    }
+
+    /**
+     * @Route("/exam/enrollment/finished")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function finishEnrollment(Request $request) {
+        if($request->isXmlHttpRequest()) {
+            $this->enrollmentService->finishEnrollment();
+
+            return new JsonResponse([
+                'status'=> 200,
+                'url' => '/exam/enrollment/finished'
+            ]);
+        }
+
+        return new JsonResponse([
+            'status' => 500
+        ]);
+    }
+
 }
