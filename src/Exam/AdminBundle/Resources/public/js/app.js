@@ -1,3 +1,14 @@
+var address = window.location.pathname;
+var menus = $(".nav.nav-list").children("li");
+
+$.each(menus, function(){
+    var $this = $(this);
+
+    if(address.indexOf($this.children("a").attr("href")) === 0) {
+        $this.addClass("active");
+    }
+});
+
 function Masker(mask) {
     this.html = $("html");
     this.masker = $("." + mask);

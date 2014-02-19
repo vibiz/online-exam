@@ -59,7 +59,9 @@ class PackageController extends BaseController {
             new Package($request->get('name'))
         );
 
-        return $this->redirect('/admin/packages');
+        return $this->redirect('/admin/packages', 302, [
+            'success' => 'Package created successfully'
+        ]);
     }
 
     /**
