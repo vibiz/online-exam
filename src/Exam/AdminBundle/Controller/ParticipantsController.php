@@ -11,6 +11,7 @@ use Exam\DomainBundle\Repository\UserRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -95,7 +96,7 @@ class ParticipantsController extends BaseController {
 
         $this->participantRepo->persist($participant);
 
-        return $this->showAll();
+        return new RedirectResponse("/admin/participants");
     }
 
     /**

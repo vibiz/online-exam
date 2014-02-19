@@ -19,7 +19,7 @@ class Question extends Entity {
     /**
      * @ORM\ManyToOne(targetEntity="Option")
      */
-    private $correctOption;
+    private $answer;
 
     /**
      * @ORM\Column(type="text")
@@ -45,16 +45,18 @@ class Question extends Entity {
         $this->options->remove($option);
     }
 
-    public function setCorrectOption(Option $option) {
-        if (!$this->options->indexOf($option)) {
-            throw new \Exception("Option is not included in the selected question");
-        }
+    public function setAnswer($optionId) {
+        $foundOptions = $this->options->filter(function(Option $option) use($optionId) {
+            return $option->getId() == $optionId;
+        });
 
-        $this->correctOption = $option;
+        $this->answer = $foundOptions->first();
+
+        return $this;
     }
 
-    public function getCorrectOption() {
-        return $this->correctOption;
+    public function getAnswer() {
+        return $this->answer;
     }
 
     public function setDescription($description) {

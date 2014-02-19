@@ -6,6 +6,7 @@
         <div class="block">
             <div class="navbar navbar-inner block-header">
                 <div class="muted pull-left">All Participants</div>
+                <a href="/admin/participants/create" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> New Participant</a>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
@@ -28,12 +29,23 @@
                                 <td>{{ participant.name }}</td>
                                 <td>{{ participant.dob | date('d-M-Y') }}</td>
                                 <td>{{ participant.createdOn | date('d-M-Y') }}</td>
-                                <td><a href="/admin/participants/edit/{{ participant.id }}"><i class="icon-pencil"></i></a></td>
+                                <td>
+                                    <a href="/admin/participants/edit/{{ participant.id }}" class="btn btn-mini btn-inverse pull-right"><i class="icon-pencil icon-white"></i> Edit</a>
+                                    <a href="javascript:void(0);" class="btn btn-mini pull-right"><i class="icon-zoom-in"></i> Detail</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Participant Detail</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="cover">Choose a participant</div>
             </div>
         </div>
     </div>

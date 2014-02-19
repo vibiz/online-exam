@@ -95,4 +95,8 @@ class Enrollment extends Entity {
     public function getPackage() {
         return $this->package;
     }
+
+    public function getParticipant() {
+        return $this->participant;
+    }
 }

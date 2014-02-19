@@ -29,7 +29,7 @@
                                             <i class="expand icon-plus pull-right" rel="{{ question.id }}"></i>
                                         </div>
                                         <div>
-                                            <form action="/admin/questions/answer/edit" method="post">
+                                            <form class="ajax" action="/admin/questions/answer" method="post">
                                                 <input type="hidden" name="id" value="{{ question.id }}" />
                                                 <table id="{{ question.id }}" class="table table-bordered sub-table">
                                                     <thead>
@@ -40,10 +40,10 @@
                                                     </thead>
                                                     <tbody>
                                                     {% for option in question.options %}
-                                                        <tr class="{% if option == question.correctOption %}success{% else %}error{% endif %}">
+                                                        <tr class="{% if option == question.answer %}success{% else %}error{% endif %}">
                                                             <td>{{ option.description }}</td>
                                                             <td class="span2 text-center">
-                                                                <input class="options" type="checkbox" value="{{ option.id }}" name="correctOption" {% if option == question.correctOption %}checked{% endif %}/>
+                                                                <input class="options" type="radio" value="{{ option.id }}" name="correctOption-{{ question.id }}" {% if option == question.answer %}checked{% endif %}/>
                                                             </td>
                                                         </tr>
                                                     {% endfor %}
@@ -67,42 +67,39 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        var $forms = $("form");
+        $(document).ready(function(){
+            $("input.options").on("click", function() {
+                var $this = $(this);
+                var $tr = $(this).parents("tr").first();
+                var $form = $this.closest("form");
 
-        $forms.submit(function(ev) {
-            var $this = $(this);
-            var $request = $.ajax({
-                type        : $this.attr("method"),
-                action      : $this.attr("action"),
-                data        : $this.serialize(),
-                beforeSend  : function () {
-                    $masker.start();
-                }
+                $.ajax({
+                    type        : $form.attr("method"),
+                    url         : $form.attr("action"),
+                    data        : $form.serialize(),
+                    beforeSend  : function () {
+                        $masker.start();
+                    }
+                }).complete(function(xhr, status) {
+                    $masker.stop();
+
+                    if(status === "success") {
+                        $tr.siblings(".success").toggleClass("error").toggleClass("success");
+                        $tr.toggleClass("error");
+                        $tr.toggleClass("success");
+                    }
+                });
             });
 
-            $request.complete(function(xhr, status) {
-                $masker.stop();
+            $(".expand").on("click", function() {
+                var $this = $(this);
+                var $table = $("table#" + $this.attr("rel"));
+
+                $this.toggleClass("icon-plus");
+                $this.toggleClass("icon-minus");
+
+                $table.toggle();
             });
-
-            ev.preventDefault();
-        });
-
-
-        $("input.options").on("click", function() {
-            var $this = $(this);
-            var $form = $this.parents("form").first();
-
-            $form.submit();
-        });
-
-        $(".expand").on("click", function() {
-            var $this = $(this);
-            var $table = $("table#" + $this.attr("rel"));
-
-            $this.toggleClass("icon-plus");
-            $this.toggleClass("icon-minus");
-
-            $table.toggle();
         });
     </script>
 {% endblock %}

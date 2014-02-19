@@ -238,6 +238,7 @@ th.text-center { text-align: center; }
 table.sub-table { display: none; }
 td form { margin: 0; }
 td form input[type="checkbox"] { margin: 0; }
+td .btn { margin-left: 5px; }
 tr.masked {
     position: relative;
 }
@@ -255,3 +256,12 @@ tr.masked {
     z-index: 2000;
 }
 .mask .animation { background: url('/img/loading.gif') no-repeat center; }
+.cover {
+    background: rgba(70, 70, 70, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 40px;
+    line-height: 40px;
+    padding: 25px 0;
+    width: 100%;
+    text-align: center;
+}

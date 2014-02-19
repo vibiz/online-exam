@@ -3,6 +3,7 @@
 namespace Exam\DomainBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Exam\DomainBundle\Entity\Test\Package;
 use Exam\DomainBundle\Repository\BaseRepository;
 use Exam\WebBundle\Service\LoginService;
 use JMS\DiExtraBundle\Annotation\Inject;
@@ -32,4 +33,11 @@ class EnrollmentRepository extends BaseRepository {
         return $this->findBy(array('participant' => $participant));
     }
 
+    public function findEnrollmentsForPackage(Package $package) {
+        return $this->findBy([
+            'package' => $package
+        ], [
+            'createdOn' => 'desc'
+        ]);
+    }
 }

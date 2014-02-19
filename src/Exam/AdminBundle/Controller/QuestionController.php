@@ -2,12 +2,13 @@
 
 namespace Exam\AdminBundle\Controller;
 
+use Exam\AopBundle\Transactional;
 use Exam\DomainBundle\Repository\OptionRepository;
 use Exam\DomainBundle\Repository\QuestionRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -34,20 +35,19 @@ class QuestionController extends BaseController {
     }
 
     /**
-     * @Route("/questions/answer/edit")
+     * @Route("/questions/answer")
      * @Method({"POST"})
+     * @Transactional
      */
-    public function edit(Request $request) {
-        $question = $this->questionRepo->find($request->get('id'));
+    public function editAnswer(Request $request) {
+        $questionId = $request->get('id');
+        $answerId = $request->get('correctOption-'.$request->get('id'));
+        $question = $this->questionRepo->find($questionId);
 
-        $question->setCorrectOption(
-            $this->optionRepo->find($request->get('correctOption'))
+        $this->questionRepo->persist(
+            $question->setAnswer($answerId)
         );
 
-        $this->questionRepo->persist($question);
-
-        var_dump($question->getCorrectOption());exit;
-
-        return new Response();
+        return new Response('Success', 200);
     }
 }

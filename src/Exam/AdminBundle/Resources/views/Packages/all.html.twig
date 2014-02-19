@@ -15,8 +15,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Total Questions</th>
                                 <th>Registered On</th>
+                                <th>Total Questions</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -25,9 +25,13 @@
                             <tr>
                                 <td>{{ package.id }}</td>
                                 <td>{{ package.name }}</td>
-                                <td><a href="/admin/packages/{{ package.id }}/questions">{{ package.questions | length }}</a></td>
                                 <td>{{ package.createdOn | date('d-M-Y') }}</td>
-                                <td><a href="/admin/packages/edit/{{ package.id }}"><i class="icon-pencil"></i></a></td>
+                                <td>{{ package.questions | length }}</td>
+                                <td>
+                                    <a href="/admin/packages/edit/{{ package.id }}" class="btn btn-mini btn-inverse pull-right"><i class="icon-pencil icon-white"></i> Edit</a>
+                                    <a href="/admin/packages/{{ package.id }}/questions" class="btn btn-mini pull-right"><i class="icon-list-alt"></i> Questions</a>
+                                    <a href="/admin/packages/{{ package.id }}/enroll" class="btn btn-mini pull-right"><i class="icon-user"></i> Enroll</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
