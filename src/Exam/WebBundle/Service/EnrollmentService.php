@@ -100,7 +100,7 @@ class EnrollmentService {
         $this->setEnrollment($enrollmentId);
 
         if($this->getEnrollment()->isStarted()) {
-            $this->session->remove('enrollment');
+            $this->removeEnrollment();
             throw new \Exception("This package has been started!");
         }
 
@@ -117,6 +117,8 @@ class EnrollmentService {
             $this->crudService->update(
                 $this->getEnrollment()->finish()
             );
+
+            $this->removeEnrollment();
         }
     }
 

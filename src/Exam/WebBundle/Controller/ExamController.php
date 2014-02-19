@@ -107,4 +107,41 @@ class ExamController extends BaseController {
             'status' => 500
         ]);
     }
+
+    /**
+     * @Route("/exam/enrollment/finished")
+     * @Method({"GET"})
+     */
+    public function sayThanks() {
+        if(!$this->service->isLogin()) {
+            return $this->redirect('/login');
+        }
+
+        if($this->enrollmentService->hasEnrollment()) {
+            return $this->redirect('/exam');
+        }
+
+        return $this->render('ExamWebBundle:Exam:thanks.html.twig');
+    }
+
+    /**
+     * @Route("/exam/enrollment/finished")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function finishEnrollment(Request $request) {
+        if($request->isXmlHttpRequest()) {
+            $this->enrollmentService->finishEnrollment();
+
+            return new JsonResponse([
+                'status'=> 200,
+                'url' => '/exam/enrollment/finished'
+            ]);
+        }
+
+        return new JsonResponse([
+            'status' => 500
+        ]);
+    }
+
 }
