@@ -42,12 +42,15 @@ class LoginService {
         $this->repo = $repo;
     }
 
-    public function checkParticipant($username, $password) {
-        if($username == 'test') {
-            if($password == 'test') {
-                $participant = $this->getParticipant($this->getUser($username));
-                $this->session->set('participant', $participant->getId());
-            }
+    public function checkParticipant($registrationNumber, $password) {
+        $user = $this->userRepo->findOneBy(array(
+            "username" => $registrationNumber,
+            "password" => md5($password)
+        ));
+
+        if($user) {
+            $participant = $this->getParticipant($user);
+            $this->session->set('participant', $participant->getId());
         }
     }
 
