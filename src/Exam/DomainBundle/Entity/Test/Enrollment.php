@@ -33,7 +33,7 @@ class Enrollment extends Entity {
     private $finishedOn;
 
     /**
-     * @ORM\OneToMany(targetEntity="Attempt", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="Attempt", mappedBy="enrollment", cascade={"persist"})
      */
     private $attempts;
 
