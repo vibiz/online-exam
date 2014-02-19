@@ -46,6 +46,8 @@ class Enrollment extends Entity {
 
     public function addAttempts(Attempt $attempt) {
         $this->attempts->add($attempt);
+
+        return $this;
     }
 
     public function start() {
