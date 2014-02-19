@@ -8,7 +8,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Package Name</th>
-                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -18,7 +17,6 @@
                 <tr>
                     <td>{{ enrollment.package.id }}</td>
                     <td>{{ enrollment.package.name }}</td>
-                    <td><span class="label secondary">{{ enrollment.finished ? 'complete' : 'not complete'}}</span></td>
                     <td><a href="/exam/{{ enrollment.id }}" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
                 </tr>
                 {% endfor %}

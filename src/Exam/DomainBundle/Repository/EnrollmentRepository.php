@@ -28,11 +28,6 @@ class EnrollmentRepository extends BaseRepository {
         $this->service = $service;
     }
 
-    public function getEnrollments() {
-        $participant = $this->service->getCurrentParticipant();
-        return $this->findBy(array('participant' => $participant));
-    }
-
     public function findEnrollmentsForPackage(Package $package) {
         return $this->findBy([
             'package' => $package

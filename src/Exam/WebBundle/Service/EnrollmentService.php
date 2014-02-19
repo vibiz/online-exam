@@ -91,7 +91,12 @@ class EnrollmentService {
     }
 
     public function getEnrollments() {
-        return $this->enrollmentRepo->getEnrollments();
+        $participant = $this->loginService->getCurrentParticipant();
+        return $this->enrollmentRepo->findBy(array('participant' => $participant));
+    }
+
+    public function getAvailableEnrollments() {
+
     }
 
     public function startEnrollment($enrollmentId) {
