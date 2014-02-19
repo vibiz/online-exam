@@ -42,7 +42,7 @@ class LoginService {
         $this->repo = $repo;
     }
 
-    public function findUser($registrationNumber, $password) {
+    private function findUser($registrationNumber, $password) {
         return $this->userRepo->findOneBy(array(
             "username" => $registrationNumber,
             "password" => md5($password)
