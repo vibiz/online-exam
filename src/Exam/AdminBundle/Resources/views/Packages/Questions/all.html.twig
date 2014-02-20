@@ -26,7 +26,7 @@
                                     <td>
                                         <div>
                                             {{ question.description }}
-                                            <i class="expand icon-plus pull-right" rel="{{ question.id }}"></i>
+                                            <i class="expand icon-chevron-down pull-right" rel="{{ question.id }}"></i>
                                         </div>
                                         <div>
                                             <form class="ajax" action="/admin/questions/answer" method="post">
@@ -95,8 +95,8 @@
                 var $this = $(this);
                 var $table = $("table#" + $this.attr("rel"));
 
-                $this.toggleClass("icon-plus");
-                $this.toggleClass("icon-minus");
+                $this.toggleClass("icon-chevron-down");
+                $this.toggleClass("icon-chevron-up");
 
                 $table.toggle();
             });

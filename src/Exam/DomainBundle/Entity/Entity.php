@@ -32,6 +32,11 @@ abstract class Entity {
     protected $updatedOn;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $removedOn;
+
+    /**
      * Get id
      *
      * @return string
@@ -51,5 +56,15 @@ abstract class Entity {
 
     public function getUpdatedOn() {
         return $this->updatedOn;
+    }
+
+    public function update() {
+        $this->updatedOn = new \DateTime('NOW');
+
+        return $this;
+    }
+
+    public function getRemovedOn() {
+        return $this->removedOn;
     }
 }

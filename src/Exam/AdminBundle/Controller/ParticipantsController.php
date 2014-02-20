@@ -6,6 +6,7 @@ use Exam\AopBundle\FlashMessage;
 use Exam\AopBundle\Transactional;
 use Exam\DomainBundle\Entity\User\Participant;
 use Exam\DomainBundle\Entity\User\User;
+use Exam\DomainBundle\Repository\EnrollmentRepository;
 use Exam\DomainBundle\Repository\ParticipantRepository;
 use Exam\DomainBundle\Repository\UserRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
@@ -20,14 +21,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ParticipantsController extends BaseController {
     private $participantRepo;
+    private $enrollmentRepo;
     private $userRepo;
 
     /**
      * @InjectParams
      */
-    public function __construct(ParticipantRepository $participantRepo, UserRepository $userRepo) {
+    public function __construct(ParticipantRepository $participantRepo, UserRepository $userRepo, EnrollmentRepository $enrollmentRepo) {
         $this->participantRepo = $participantRepo;
         $this->userRepo = $userRepo;
+        $this->enrollmentRepo = $enrollmentRepo;
     }
 
     /**
@@ -109,6 +112,20 @@ class ParticipantsController extends BaseController {
         return new Response(
             $this->isRegistrationNumberUnique($request->get('registration-number')) ? '' : 'false'
         );
+    }
+
+    /**
+     * @Route("/detail/{id}")
+     * @Method({"GET"})
+     */
+    public function getDetail($id) {
+        $participant = $this->participantRepo->find($id);
+        $enrollments = $this->enrollmentRepo->findForParticipants($participant);
+
+        return $this->renderView('participants/detail.html.twig', [
+            'participant' => $participant,
+            'enrollments' => $enrollments
+        ]);
     }
 
     private function isRegistrationNumberUnique($registrationNumber) {
