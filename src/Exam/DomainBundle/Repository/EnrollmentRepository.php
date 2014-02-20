@@ -4,6 +4,7 @@ namespace Exam\DomainBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Exam\DomainBundle\Entity\Test\Package;
+use Exam\DomainBundle\Entity\User\Participant;
 use Exam\DomainBundle\Repository\BaseRepository;
 use Exam\WebBundle\Service\LoginService;
 use JMS\DiExtraBundle\Annotation\Inject;
@@ -24,9 +25,17 @@ class EnrollmentRepository extends BaseRepository {
         parent::__construct($em);
     }
 
-    public function findEnrollmentsForPackage(Package $package) {
+    public function findForPackage(Package $package) {
         return $this->findBy([
             'package' => $package
+        ], [
+            'createdOn' => 'desc'
+        ]);
+    }
+
+    public function findForParticipants(Participant $participant) {
+        return $this->findBy([
+            'participant' => $participant
         ], [
             'createdOn' => 'desc'
         ]);

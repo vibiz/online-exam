@@ -31,6 +31,14 @@ class EnrollmentController extends BaseController {
     }
 
     /**
+     * @Route("/")
+     * @Method({"GET"})
+     */
+    public function showAll() {
+        
+    }
+
+    /**
      * @Route("/add")
      * @Method({"POST"})
      * @Transactional
@@ -43,6 +51,37 @@ class EnrollmentController extends BaseController {
             new Enrollment($participant, $package)
         );
 
-        return new RedirectResponse($request->server->get('HTTP_REFERER'));
+        return $this->redirect($request->server->get('HTTP_REFERER'), 302, [
+            'success' => 'New enrollment added successfully'
+        ]);
+    }
+
+    /**
+     * @Route("/remove")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function remove(Request $request) {
+        $enrollment = $this->enrollmentRepo->find($request->get('id'));
+
+        $this->enrollmentRepo->remove($enrollment);
+
+        return $this->redirect('/admin/enrollments/all', 302, [
+            'success' => 'Enrollment removed'
+        ]);
+    }
+
+    /**
+     * @Route("/restart")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function restart(Request $request) {
+        $enrollment = $this->enrollmentRepo->find($request->get('id'));
+
+
+        return $this->redirect('/admin/enrollments/all', 302, [
+            'success' => 'Enrollment restarted'
+        ]);
     }
 }

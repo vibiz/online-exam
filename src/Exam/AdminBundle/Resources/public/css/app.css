@@ -265,3 +265,7 @@ tr.masked {
     width: 100%;
     text-align: center;
 }
+.badge {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}

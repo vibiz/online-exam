@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="mask"><div class="animation"></div></div>
+    <div class="mask global"><div class="animation"></div></div>
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
@@ -40,11 +40,26 @@
         <div class="row-fluid">
             <div class="span3" id="sidebar">
                 <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                    <li><a href="/admin"><i class="icon-chevron-right"></i> Dashboard</a> </li>
-                    <li><a href="/admin/participants"><i class="icon-chevron-right"></i> Participants</a> </li>
-                    <li><a href="/admin/packages"><i class="icon-chevron-right"></i> Packages</a> </li>
                     <li>
-                        <a href="#"><span class="badge badge-success pull-right">731</span> Orders</a>
+                        <a href="/admin">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/admin/participants">
+                            <span class="badge badge-info pull-right">{{ participantsCount }}</span> Participants
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/packages">
+                            <span class="badge badge-info pull-right">{{ packagesCount }}</span> Packages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/enrollments">
+                            <span class="badge badge-important pull-right">{{ enrollmentsCount.finished }}</span>
+                            <span class="badge badge-info pull-right">{{ enrollmentsCount.onProgress }}</span>
+                            <span class="badge badge-warning pull-right">{{ enrollmentsCount.notStarted }}</span>
+                            Enrollments
+                        </a>
                     </li>
                 </ul>
             </div>

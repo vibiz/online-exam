@@ -114,7 +114,7 @@ class PackageController extends BaseController {
     public function showEnroll($id) {
         $package = $this->packageRepo->find($id);
         $participants = $this->participantRepo->all();
-        $enrollments = $this->enrollmentRepo->findEnrollmentsForPackage($package);
+        $enrollments = $this->enrollmentRepo->findForPackage($package);
 
         return $this->render('/packages/enrollments/all.html.twig', [
             'package' => $package,

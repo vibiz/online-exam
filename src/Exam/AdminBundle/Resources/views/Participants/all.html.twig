@@ -31,7 +31,7 @@
                                 <td>{{ participant.createdOn | date('d-M-Y') }}</td>
                                 <td>
                                     <a href="/admin/participants/edit/{{ participant.id }}" class="btn btn-mini btn-inverse pull-right"><i class="icon-pencil icon-white"></i> Edit</a>
-                                    <a href="javascript:void(0);" class="btn btn-mini pull-right"><i class="icon-zoom-in"></i> Detail</a>
+                                    <a href="javascript:void(0);" class="btn btn-mini pull-right detail" data="{{ participant.id }}"><i class="icon-zoom-in"></i> Detail</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -45,9 +45,39 @@
                 <div class="muted pull-left">Participant Detail</div>
             </div>
             <div class="block-content collapse in">
-                <div class="cover">Choose a participant</div>
+                <div class="mask inner"><div class="animation"></div></div>
+                <div class="detail">
+                    <div class="cover">Choose a participant</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var $detailContainer = $("div.detail");
+        var $mask = $(".mask.inner");
+
+        $("a.detail").on("click", function() {
+            var $this = $(this);
+            var $data = $this.attr("data");
+
+            $.ajax({
+                url         : "/admin/participants/detail/" + $data,
+                type        : "GET",
+                beforeSend  : function() {
+                    $mask.show();
+                }
+            }).complete(function(jqXhr, status) {
+                $mask.hide();
+
+                if(status === "success") {
+                    $detailContainer.html(jqXhr.responseText);
+                }
+            })
+        })
+    </script>
 {% endblock %}

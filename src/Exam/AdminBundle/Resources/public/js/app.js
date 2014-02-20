@@ -1,18 +1,22 @@
 var address = window.location.pathname;
-var menus = $(".nav.nav-list").children("li");
+var menus = $(".nav.nav-list").children("li:not(:first-child)");
 
-$.each(menus, function(){
-    var $this = $(this);
+if(address.replace(/\//g, "") === "admin") {
+    $(".nav.nav-list").children("li").first().addClass("active")
+}
+else {
+    $.each(menus, function(){
+        var $this = $(this);
 
-    if(address.indexOf($this.children("a").attr("href")) === 0) {
-        $this.addClass("active");
-    }
-});
+        if(address.indexOf($this.children("a").attr("href")) === 0) {
+            $this.addClass("active");
+        }
+    });
+}
 
 function Masker(mask) {
     this.html = $("html");
-    this.masker = $("." + mask);
-
+    this.masker = $(mask);
 
     Masker.prototype.start = function() {
         var doc = document.documentElement;
@@ -52,5 +56,5 @@ $(document).ready(function() {
         $('#sidebar').show('fast');
     });
 
-    $masker = new Masker("mask");
+    $masker = new Masker(".mask.global");
 });

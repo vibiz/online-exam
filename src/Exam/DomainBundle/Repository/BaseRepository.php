@@ -16,8 +16,14 @@ abstract class BaseRepository extends EntityRepository {
         parent::__construct($em, new ClassMetadata(self::getClass()));
     }
 
-    public function all(){
-        return $this->findAll();
+    public function all($includeRemoved = false) {
+        $criterion = [];
+
+        if(!$includeRemoved) {
+            $criterion ['removedOn'] = null;
+        }
+
+        return $this->findBy($criterion);
     }
 
     public function count(){
@@ -25,7 +31,7 @@ abstract class BaseRepository extends EntityRepository {
     }
 
     public function persist(Entity $entity){
-        $this->getManager()->persist($entity);
+        $this->getManager()->persist($entity->update());
 
         return $entity;
     }
