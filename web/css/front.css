@@ -85,3 +85,5 @@ fieldset{
 legend { background: transparent !important; }
 input[type="file"], input[type="checkbox"], input[type="radio"], select { vertical-align: sub; }
 .no-padding { padding: 0 !important; }
+.centered { text-align: center; }
+.saythanks>p { font-size: 13px }
