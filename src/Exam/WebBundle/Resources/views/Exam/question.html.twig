@@ -53,7 +53,7 @@
             <fieldset>
                 <legend>Question Palette</legend>
                 <ul class="palette-container">
-                    {% for i in 1..questions.count %}
+                    {% for i in 1..28 %}
                         <li data-id={{ i }}>{{ i }}</li>
                     {% endfor %}
                 </ul>
@@ -80,6 +80,11 @@
                     </tr>
                 </table>
             </div>
+        </div>
+        <div class="medium-4 columns martop">
+            <form method="post" action="/exam/enrollment/finished">
+                <button type="submit" class="button success large large-12 radius" onclick="return confirm('You still have time, finish the test now?');">FINISH</button>
+            </form>
         </div>
     </div>
 {% endblock %}

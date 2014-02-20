@@ -7,6 +7,9 @@
  */
 
 (function(window, document, $) {
+    options = {
+        divisor: 2
+    }
 
     var timer = new Timer();
     timer.start()
@@ -16,10 +19,11 @@
 
     currentId = getId($items.first().addClass('active'));
 
+    startUp();
     checkControlState();
 
     $("#controller-prev").click(function() {
-        fillPalette();
+        fillPalette(currentId);
 
         $question = getQuestion().prev();
         currentId = getId(getQuestion().prev().addClass('active'));
@@ -29,7 +33,11 @@
     });
 
     $("#controller-next").on('click', function() {
-        fillPalette();
+        fillPalette(currentId);
+
+        if(getId(getQuestion())==1) {
+            alert(1);
+        }
 
         $question = getQuestion().next();
         currentId = getId(getQuestion().next().addClass('active'));
@@ -44,10 +52,18 @@
         post(currentId, getId($(this)));
     });
 
-    function fillPalette() {
-        if($("input:radio[name=opt"+currentId+"]").is(':checked') == false) {
-            findPalette(currentId).addClass('skipped');
+    function fillPalette(id) {
+        if($("input:radio[name=opt"+id+"]").is(':checked') == false) {
+            findPalette(id).addClass('skipped');
         }
+    }
+
+    function startUp() {
+        $.each($items, function() {
+            if($("input:radio[name=opt"+getId($(this))+"]").is(':checked')) {
+                findPalette(getId($(this))).addClass('answered');
+            }
+        });
     }
 
     function checkControlState() {

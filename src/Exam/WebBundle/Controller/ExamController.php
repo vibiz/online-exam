@@ -134,6 +134,12 @@ class ExamController extends BaseController {
             ]);
         }
 
+        if($request->isMethod('POST')) {
+            $this->enrollmentService->finishEnrollment();
+
+            return $this->redirect('/exam/enrollment/finished');
+        }
+
         return new JsonResponse([
             'status' => 500
         ]);
