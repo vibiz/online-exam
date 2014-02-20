@@ -45,9 +45,9 @@ fieldset{
     text-align: center;
     border: 1px solid #333333; }
 .current { border: 1px solid red !important; }
-.answered { background-color: green }
+.answered { background-color: green !important; }
+.skipped { background-color: #ffff00 !important;}
 .not-visited { background-color: #c0c0c0 }
-.skipped { background-color: #ffff00 }
 .box {
     width: 16px;
     height: 16px; }

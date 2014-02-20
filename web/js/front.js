@@ -19,6 +19,8 @@
     checkControlState();
 
     $("#controller-prev").click(function() {
+        fillPalette();
+
         $question = getQuestion().prev();
         currentId = getId(getQuestion().prev().addClass('active'));
         $items.not($question).removeAttr('class');
@@ -27,6 +29,8 @@
     });
 
     $("#controller-next").on('click', function() {
+        fillPalette();
+
         $question = getQuestion().next();
         currentId = getId(getQuestion().next().addClass('active'));
         $items.not($question).removeAttr('class');
@@ -35,8 +39,16 @@
     });
 
     $("input[type='radio']").change(function(){
+        findPalette(currentId).removeClass('skipped').addClass('answered');
+
         post(currentId, getId($(this)));
     });
+
+    function fillPalette() {
+        if($("input:radio[name=opt"+currentId+"]").is(':checked') == false) {
+            findPalette(currentId).addClass('skipped');
+        }
+    }
 
     function checkControlState() {
         if(currentId === 1) {
