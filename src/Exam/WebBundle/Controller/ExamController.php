@@ -63,7 +63,7 @@ class ExamController extends BaseController {
 
         if(!$this->enrollmentService->hasEnrollment()) {
             return $this->render('ExamWebBundle:Exam:enrollment.html.twig', [
-                "all" => $this->enrollmentService->getEnrollments()
+                "all" => $this->enrollmentService->getAvailableEnrollments()
             ]);
         }
 

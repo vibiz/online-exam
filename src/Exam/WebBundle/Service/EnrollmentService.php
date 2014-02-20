@@ -91,12 +91,18 @@ class EnrollmentService {
     }
 
     public function getEnrollments() {
-        $participant = $this->loginService->getCurrentParticipant();
-        return $this->enrollmentRepo->findBy(array('participant' => $participant));
+        return $this->enrollmentRepo->findBy(array(
+            'participant' => $this->loginService->getCurrentParticipant()
+        ));
     }
 
     public function getAvailableEnrollments() {
-
+        return $this->enrollmentRepo->createQueryBuilder('enroll')
+            ->where('enroll.participant = :p')
+            ->andWhere('enroll.startedOn IS NULL and enroll.finishedOn IS NULL')
+            ->setParameter('p', $this->loginService->getCurrentParticipant())
+            ->getQuery()
+            ->execute();
     }
 
     public function startEnrollment($enrollmentId) {
