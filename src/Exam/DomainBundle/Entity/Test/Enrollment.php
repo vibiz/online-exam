@@ -99,4 +99,16 @@ class Enrollment extends Entity {
     public function getParticipant() {
         return $this->participant;
     }
+
+    public function getCorrectAnswers() {
+        return count($this->package->getQuestions()->filter(function(Question $question) {
+            return $this->getAttemptsFor($question->getId())->last()
+                ? $this->getAttemptsFor($question->getId())->last()->getAnswer() === $question->getAnswer()
+                : false;
+        }));
+    }
+
+    public function getScore() {
+        return ($this->getCorrectAnswers() / $this->package->getTotalQuestions()) * 100;
+    }
 }

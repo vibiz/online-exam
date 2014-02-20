@@ -9,6 +9,8 @@
                     <th>Enrolled On</th>
                     <th>Started On</th>
                     <th>Finished On</th>
+                    <th>Correct Answers</th>
+                    <th>Score</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -19,6 +21,8 @@
                         <td>{{ enrollment.createdOn | date('d-M-Y') }}</td>
                         <td>{{ enrollment.startedOn ? enrollment.startedOn | date('d-M-Y') : '-' }}</td>
                         <td>{{ enrollment.finishedOn ? enrollment.finishedOn | date('d-M-Y') : '-' }}</td>
+                        <td>{{ enrollment.correctAnswers }}</td>
+                        <td>{{ enrollment.score }}</td>
                         <td>
                             {% if enrollment.isFinished %}
                                 <a href="javascript:void(0);" id="detail" class="btn btn-mini pull-right" data="{{ participant.id }}">

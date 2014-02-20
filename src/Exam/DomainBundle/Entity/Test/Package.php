@@ -47,4 +47,8 @@ class Package extends Entity {
     public function removeQuestion(Question $question) {
         $this->questions->removeElement($question);
     }
+
+    public function getTotalQuestions() {
+        return count($this->questions);
+    }
 }
