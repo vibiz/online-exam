@@ -70,9 +70,9 @@ class Enrollment extends Entity {
         return $this;
     }
 
-    public function getAttemptsFor(Question $question) {
-        return $this->attempts->filter(function(Attempt $attempt) use($question) {
-            return $attempt->getQuestion() === $question;
+    public function getAttemptsFor($questionId) {
+        return $this->attempts->filter(function(Attempt $attempt) use($questionId) {
+            return $attempt->getQuestion()->getId() === $questionId;
         });
     }
 
