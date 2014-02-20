@@ -13,7 +13,7 @@ use Exam\DomainBundle\Entity\User\Participant;
  */
 class Enrollment extends Entity {
     /**
-     * @ORM\OneToOne(targetEntity="Exam\DomainBundle\Entity\User\Participant")
+     * @ORM\ManyToOne(targetEntity="Exam\DomainBundle\Entity\User\Participant")
      */
     private $participant;
 

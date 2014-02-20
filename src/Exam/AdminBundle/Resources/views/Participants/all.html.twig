@@ -31,6 +31,7 @@
                                 <td>{{ participant.createdOn | date('d-M-Y') }}</td>
                                 <td>
                                     <a href="/admin/participants/edit/{{ participant.id }}" class="btn btn-mini btn-inverse pull-right"><i class="icon-pencil icon-white"></i> Edit</a>
+                                    <a href="/admin/participants/{{ participant.id }}/enroll" class="btn btn-mini btn-inverse pull-right"><i class="icon-user icon-white"></i> Enroll</a>
                                     <a href="javascript:void(0);" class="btn btn-mini pull-right detail" data="{{ participant.id }}"><i class="icon-zoom-in"></i> Detail</a>
                                 </td>
                             </tr>

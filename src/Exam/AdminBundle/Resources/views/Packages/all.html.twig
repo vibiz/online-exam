@@ -27,8 +27,8 @@
                                 <td>{{ package.createdOn | date('d-M-Y') }}</td>
                                 <td>
                                     <a href="/admin/packages/edit/{{ package.id }}" class="btn btn-mini btn-inverse pull-right"><i class="icon-pencil icon-white"></i> Edit</a>
+                                    <a href="/admin/packages/{{ package.id }}/enroll" class="btn btn-mini btn-inverse pull-right"><i class="icon-user icon-white"></i> Enroll</a>
                                     <a href="/admin/packages/{{ package.id }}/questions" class="btn btn-mini pull-right"><i class="icon-list-alt"></i> Questions ({{ package.questions | length }})</a>
-                                    <a href="/admin/packages/{{ package.id }}/enroll" class="btn btn-mini pull-right"><i class="icon-user"></i> Enroll</a>
                                 </td>
                             </tr>
                         {% endfor %}
