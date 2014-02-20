@@ -10,6 +10,7 @@
                     <div class="panel panel-full">
                        <ul class="question-container">
                            {% for question in questions %}
+                               {% set attempt = enrollment.attemptsFor(question.id) | reverse | first %}
                            <li data-id={{ question.id }}>
                                <p>{{ question.description }}</p>
 
@@ -18,7 +19,7 @@
                                     {% for option in question.options %}
                                         {% set opt = "opt"~question.id %}
                                         <label for="{{ opt~option.id }}">
-                                            <input type="radio" name="{{ opt }}" value="{{ option.description }}" id="{{ opt~option.id }}" data-id="{{ option.id }}"> {{ option.description }}
+                                            <input type="radio" name="{{ opt }}" value="{{ option.description }}" id="{{ opt~option.id }}" data-id="{{ option.id }}" {{ not attempt?: not(option.id == attempt.answer.id) ? '' : 'checked' }}> {{ option.description }}
                                         </label>
                                     {% endfor %}
                                </div>

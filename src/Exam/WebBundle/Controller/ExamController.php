@@ -67,7 +67,7 @@ class ExamController extends BaseController {
 
         return $this->render('ExamWebBundle:Exam:question.html.twig', [
             "package" => $this->enrollmentService->getCurrentPackage(),
-            "attempts" => $this->enrollmentService->getEnrollment()->getAttempts()
+            "enrollment" => $this->enrollmentService->getEnrollment()
         ]);
     }
 
