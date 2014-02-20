@@ -57,9 +57,7 @@ class ExamController extends BaseController {
      * @Method({"GET"})
      */
     public function startExam() {
-        if(!$this->service->isLogin()) {
-            return $this->redirect('/login');
-        }
+        if(!$this->service->isLogin()) return $this->redirect('/login');
 
         if(!$this->enrollmentService->hasEnrollment()) {
             return $this->render('ExamWebBundle:Exam:enrollment.html.twig', [
@@ -68,7 +66,8 @@ class ExamController extends BaseController {
         }
 
         return $this->render('ExamWebBundle:Exam:question.html.twig', [
-            "package" => $this->enrollmentService->getCurrentPackage()
+            "package" => $this->enrollmentService->getCurrentPackage(),
+            "attempts" => $this->enrollmentService->getEnrollment()->getAttempts()
         ]);
     }
 
@@ -113,13 +112,9 @@ class ExamController extends BaseController {
      * @Method({"GET"})
      */
     public function sayThanks() {
-        if(!$this->service->isLogin()) {
-            return $this->redirect('/login');
-        }
+        if(!$this->service->isLogin()) return $this->redirect('/login');
 
-        if($this->enrollmentService->hasEnrollment()) {
-            return $this->redirect('/exam');
-        }
+        if($this->enrollmentService->hasEnrollment()) return $this->redirect('/exam');
 
         return $this->render('ExamWebBundle:Exam:thanks.html.twig');
     }

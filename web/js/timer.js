@@ -59,5 +59,5 @@
     }
 
     defaults = {
-        limit: 3
+        limit: 5000
     }

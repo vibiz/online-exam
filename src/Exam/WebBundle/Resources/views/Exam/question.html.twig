@@ -15,13 +15,12 @@
 
                                <div class="choose">
                                    <label>Choose Your Answer : </label>
-
-                                   {% for option in question.options %}
-                                       {% set opt = "opt"~question.id %}
-                                       <label for="{{ opt~option.id }}">
-                                           <input type="radio" name="{{ opt }}" value="{{ option.description }}" id="{{ opt~option.id }}" data-id="{{ option.id }}"> {{ option.description }}
-                                       </label>
-                                   {% endfor %}
+                                    {% for option in question.options %}
+                                        {% set opt = "opt"~question.id %}
+                                        <label for="{{ opt~option.id }}">
+                                            <input type="radio" name="{{ opt }}" value="{{ option.description }}" id="{{ opt~option.id }}" data-id="{{ option.id }}"> {{ option.description }}
+                                        </label>
+                                    {% endfor %}
                                </div>
                            </li>
                            {% endfor %}

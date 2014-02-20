@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ enrollment.package.id }}</td>
                     <td>{{ enrollment.package.name }}</td>
-                    <td><a href="/exam/{{ enrollment.id }}" target="_blank" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
+                    <td><a href="/exam/{{ enrollment.id }}" target="_self" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
                 </tr>
                 {% endfor %}
              {% else %}
