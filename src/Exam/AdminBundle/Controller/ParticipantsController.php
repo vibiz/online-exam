@@ -96,7 +96,9 @@ class ParticipantsController extends BaseController {
 
         $this->participantRepo->persist($participant);
 
-        return new RedirectResponse("/admin/participants");
+        return $this->redirect('/admin/participants', 302, [
+            'success' => 'Participant created successfully'
+        ]);
     }
 
     /**

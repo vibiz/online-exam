@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends Controller {
-
     /**
      * {@inheritDoc}
      */
@@ -25,11 +24,13 @@ abstract class BaseController extends Controller {
      * {@inheritDoc}
      */
     public function redirect($url, $status = 302, $messages = array()) {
-        foreach($messages as $type => $message) {
+        $flashBag = $this->get('session')->getFlashBag();
 
+        foreach($messages as $type => $message) {
+            $flashBag->add($type, $message);
         }
 
-        return $this->redirect($url, $status);
+        return parent::redirect($url, $status);
     }
 
     private function getView($view) {

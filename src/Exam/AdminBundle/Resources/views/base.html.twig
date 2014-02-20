@@ -40,7 +40,7 @@
         <div class="row-fluid">
             <div class="span3" id="sidebar">
                 <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-                    <li class="active"><a href="/admin"><i class="icon-chevron-right"></i> Dashboard</a> </li>
+                    <li><a href="/admin"><i class="icon-chevron-right"></i> Dashboard</a> </li>
                     <li><a href="/admin/participants"><i class="icon-chevron-right"></i> Participants</a> </li>
                     <li><a href="/admin/packages"><i class="icon-chevron-right"></i> Packages</a> </li>
                     <li>
@@ -49,6 +49,10 @@
                 </ul>
             </div>
             <div class="span9" id="content">
+                {% for type, messages in app.session.flashbag.all %}
+                    <div class="alert alert-{{ type }}">{{ messages | first }}</div>
+                {% endfor %}
+
                 {% block content %}{% endblock %}
             </div>
         </div>
