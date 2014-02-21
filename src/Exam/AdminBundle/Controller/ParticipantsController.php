@@ -2,11 +2,13 @@
 
 namespace Exam\AdminBundle\Controller;
 
+use Exam\WebBundle\Service\EnrollmentService;
 use Exam\AopBundle\FlashMessage;
 use Exam\AopBundle\Transactional;
 use Exam\DomainBundle\Entity\User\Participant;
 use Exam\DomainBundle\Entity\User\User;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
+use Exam\DomainBundle\Repository\PackageRepository;
 use Exam\DomainBundle\Repository\ParticipantRepository;
 use Exam\DomainBundle\Repository\UserRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
@@ -23,14 +25,16 @@ class ParticipantsController extends BaseController {
     private $participantRepo;
     private $enrollmentRepo;
     private $userRepo;
+    private $enrollmentService;
 
     /**
      * @InjectParams
      */
-    public function __construct(ParticipantRepository $participantRepo, UserRepository $userRepo, EnrollmentRepository $enrollmentRepo) {
+    public function __construct(ParticipantRepository $participantRepo, UserRepository $userRepo, EnrollmentRepository $enrollmentRepo, EnrollmentService $enrollmentService) {
         $this->participantRepo = $participantRepo;
         $this->userRepo = $userRepo;
         $this->enrollmentRepo = $enrollmentRepo;
+        $this->enrollmentService = $enrollmentService;
     }
 
     /**
@@ -125,6 +129,19 @@ class ParticipantsController extends BaseController {
         return $this->renderView('participants/detail.html.twig', [
             'participant' => $participant,
             'enrollments' => $enrollments
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/enroll")
+     * @Method({"GET"})
+     */
+    public function showEnroll($id) {
+        $participant = $this->participantRepo->find($id);
+
+        return $this->render('participants/enroll.html.twig', [
+            'participant' => $participant,
+            'availablePackages' => $this->enrollmentService->getAvailablePackagesFor($participant)
         ]);
     }
 

@@ -21,7 +21,7 @@
                         <td>{{ enrollment.createdOn | date('d-M-Y') }}</td>
                         <td>{{ enrollment.startedOn ? enrollment.startedOn | date('d-M-Y') : '-' }}</td>
                         <td>{{ enrollment.finishedOn ? enrollment.finishedOn | date('d-M-Y') : '-' }}</td>
-                        <td>{{ enrollment.correctAnswers }}</td>
+                        <td>{{ enrollment.correctAnswers }} of {{ enrollment.package.totalQuestions }}</td>
                         <td>{{ enrollment.score }}</td>
                         <td>
                             {% if enrollment.isFinished %}

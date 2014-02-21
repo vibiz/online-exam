@@ -10,8 +10,11 @@
 namespace Exam\WebBundle\Service;
 
 use Exam\DomainBundle\Entity\Test\Enrollment;
+use Exam\DomainBundle\Entity\Test\Package;
+use Exam\DomainBundle\Entity\User\Participant;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
 use Exam\DomainBundle\Repository\PackageRepository;
+use Exam\DomainBundle\Repository\ParticipantRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -28,6 +31,8 @@ class EnrollmentService {
     private $enrollmentId,
             $session,
             $enrollmentRepo,
+            $packageRepo,
+            $participantRepo,
             $loginService,
             $crudService;
 
@@ -35,16 +40,22 @@ class EnrollmentService {
      * @InjectParams({
      *      "session" = @Inject("session"),
      *      "enrollmentRepo" = @Inject("enrollmentRepo"),
+     *      "packageRepo" = @Inject("packageRepo"),
+     *      "participantRepo" = @Inject("participantRepo"),
      *      "loginService" = @Inject("loginService"),
      *      "crudService" = @Inject("crudService")
      * })
      */
     public function __construct(Session $session,
                                 EnrollmentRepository $enrollmentRepo,
+                                PackageRepository $packageRepo,
+                                ParticipantRepository $participantRepo,
                                 LoginService $loginService,
                                 CRUDService $crudService) {
         $this->session = $session;
         $this->enrollmentRepo = $enrollmentRepo;
+        $this->packageRepo = $packageRepo;
+        $this->participantRepo = $packageRepo;
         $this->loginService = $loginService;
         $this->crudService = $crudService;
         $this->enrollmentId = $this->session->get('enrollment');
@@ -139,5 +150,21 @@ class EnrollmentService {
                 $this->getEnrollment()->restart()
             );
         }
+    }
+
+    public function getAvailablePackagesFor(Participant $participant) {
+        $packages = $this->packageRepo->all();
+        $activeEnrollments = array_filter(
+            $this->enrollmentRepo->findForParticipants($participant),
+            function(Enrollment $enrollment) {
+                return !$enrollment->isFinished();
+            }
+        );
+
+        return array_filter($packages, function(Package $package) use($activeEnrollments) {
+            return count(array_filter($activeEnrollments, function(Enrollment $enrollment) use($package) {
+                return $enrollment->getPackage() === $package;
+            })) === 0;
+        });
     }
 }
