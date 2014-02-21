@@ -18,7 +18,7 @@
         </div>
         <div class="medium-5 columns no-padding">
             <div class="user right">
-                <span for="icon" class="radius secondary label"><strong>Participant Name</strong> : Willy Brordus</span></a>
+                <span for="icon" class="radius secondary label"><strong>Participant Name : </strong> {{ participant.name }}</span></a>
                 <form method="post" action="/logout">
                     <a href="javascript:void(0);" onclick="if(confirm('logout?')){$(this).closest('form').submit()}"><span for="icon" class="radius label alert">logout</span></a>
                 </form>

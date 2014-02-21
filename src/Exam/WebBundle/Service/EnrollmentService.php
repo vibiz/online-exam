@@ -111,6 +111,7 @@ class EnrollmentService {
         return $this->enrollmentRepo->createQueryBuilder('enroll')
             ->where('enroll.participant = :p')
             ->andWhere('enroll.startedOn IS NULL and enroll.finishedOn IS NULL')
+            ->orWhere('enroll.startedOn IS NOT NULL and enroll.finishedOn IS NULL')
             ->setParameter('p', $this->loginService->getCurrentParticipant())
             ->getQuery()
             ->execute();
@@ -120,11 +121,6 @@ class EnrollmentService {
         if($this->authorizeEnrollmentSession()) return false;
 
         $this->setEnrollment($enrollmentId);
-
-        if($this->getEnrollment()->isStarted()) {
-            $this->removeEnrollment();
-            throw new \Exception("This package has been started!");
-        }
 
         if(!$this->getEnrollment()->isStarted()) {
 
