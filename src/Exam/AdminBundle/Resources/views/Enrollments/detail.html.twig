@@ -41,12 +41,6 @@
                                     <input type="text" disabled id="name" class="span6" value="{{ enrollment.score }}"/>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label" for="name">Total Time</label>
-                                <div class="controls">
-                                    <input type="text" disabled id="name" class="span6" value="{{ enrollment.finishedOn ? enrollment.finishedOn - enrollment.startedOn : '-' }}"/>
-                                </div>
-                            </div>
                         </fieldset>
                     </form>
                 </div>
@@ -70,7 +64,7 @@
                         <tbody>
                         {% for question in enrollment.package.questions %}
                             {% set lastAttempt = enrollment.getAttemptsFor(question.id) | reverse | first %}
-                            <tr class="{% if not lastAttempt is defined %}error{% elseif not lastAttempt.isCorrect %}error{% else %}success{% endif %}">
+                            <tr class="{% if lastAttempt | length < 1 %}error{% elseif not lastAttempt.isCorrect %}error{% else %}success{% endif %}">
                                 <td>{{ question.description }}</td>
                                 <td>{{ question.answer }}</td>
                                 <td>{{ lastAttempt ? lastAttempt.answer : '-' }}</td>
