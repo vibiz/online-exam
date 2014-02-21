@@ -155,14 +155,18 @@ class Enrollment extends Entity {
     }
 
     public function getTimeleft($format = true) {
-        $interval = $this->getStartedOn()->diff(new \DateTime('now'));
+        if($this->isStarted()) {
+            $interval = $this->getStartedOn()->diff(new \DateTime('now'));
 
-        $hours   = $interval->format('%h');
-        $minutes = $interval->format('%i');
+            $hours   = $interval->format('%h');
+            $minutes = $interval->format('%i');
 
-        if($format) return $this->formatSeconds((Config::TIMELIMIT - ($hours * 60 + $minutes))*60);
+            if($format) return $this->formatSeconds((Config::TIMELIMIT - ($hours * 60 + $minutes))*60);
 
-        return Config::TIMELIMIT - ($hours * 60 + $minutes);
+            return Config::TIMELIMIT - ($hours * 60 + $minutes);
+        }
+
+        return $this->formatSeconds(0);
     }
 
     public function getScore() {
