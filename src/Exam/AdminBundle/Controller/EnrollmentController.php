@@ -2,6 +2,7 @@
 
 namespace Exam\AdminBundle\Controller;
 
+use Exam\AopBundle\Authorize;
 use Exam\AopBundle\Transactional;
 use Exam\DomainBundle\Entity\Test\Enrollment;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
@@ -43,6 +44,7 @@ class EnrollmentController extends BaseController {
     /**
      * @Route("/add")
      * @Method({"POST"})
+     * @Authorize
      * @Transactional
      */
     public function addNew(Request $request) {
