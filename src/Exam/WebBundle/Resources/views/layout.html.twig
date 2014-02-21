@@ -20,7 +20,7 @@
             <div class="user right">
                 <span for="icon" class="radius secondary label"><strong>Participant Name</strong> : Willy Brordus</span></a>
                 <form method="post" action="/logout">
-                    <span for="icon" class="radius label alert">logout</span></a>
+                    <a href="javascript:void(0);" onclick="if(confirm('logout?')){$(this).closest('form').submit()}"><span for="icon" class="radius label alert">logout</span></a>
                 </form>
             </div>
         </div>

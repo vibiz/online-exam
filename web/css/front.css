@@ -19,8 +19,9 @@ fieldset{
     margin-bottom: 0.5rem; }
 .user>a>img {
     height: 28px; }
-.user>label {
+.user>span {
     display: inline-block; }
+.user>form { display: inline-block; }
 .time { text-align: center; }
 .time>img {
     height: 50px;
