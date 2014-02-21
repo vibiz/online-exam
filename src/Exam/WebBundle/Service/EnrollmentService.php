@@ -167,4 +167,15 @@ class EnrollmentService {
             })) === 0;
         });
     }
+
+    public function createEnrollment($participantId, $packageId) {
+        $participant = $this->participantRepo->find($participantId);
+        $package = $this->packageRepo->find($packageId);
+
+        if(!in_array($this->getAvailablePackagesFor($participant), $package)) {
+            throw new Exception("Package is not available for participant");
+        }
+
+        return new Enrollment($participant, $package);
+    }
 }

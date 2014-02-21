@@ -60,4 +60,8 @@ class Participant extends Entity {
     public function setRegistrationId($registrationId) {
         $this->registrationId = $registrationId;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

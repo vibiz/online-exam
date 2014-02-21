@@ -31,4 +31,8 @@ class Option extends Entity {
     public function setDescription($description) {
         $this->description = $description;
     }
+
+    public function __toString() {
+        return $this->description;
+    }
 }

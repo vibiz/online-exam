@@ -68,11 +68,19 @@ class ParticipantsController extends BaseController {
     /**
      * @Route("/edit")
      * @Method({"POST"})
+     * @Transactional
      */
     public function edit(Request $request) {
         $participant = $this->participantRepo->find($request->get('id'));
 
+        $participant->setName($request->get('name'));
+        $participant->setDoB(new \DateTime(date('Y-m-d', strtotime($request->get('dob')))));
 
+        $this->participantRepo->persist($participant);
+
+        return $this->redirect('/admin/participants', 302, [
+            'success' => 'Participant updated'
+        ]);
     }
 
     /**
@@ -126,7 +134,7 @@ class ParticipantsController extends BaseController {
         $participant = $this->participantRepo->find($id);
         $enrollments = $this->enrollmentRepo->findForParticipants($participant);
 
-        return $this->renderView('participants/detail.html.twig', [
+        return $this->renderView('enrollments/detail.include.html.twig', [
             'participant' => $participant,
             'enrollments' => $enrollments
         ]);
@@ -141,7 +149,24 @@ class ParticipantsController extends BaseController {
 
         return $this->render('participants/enroll.html.twig', [
             'participant' => $participant,
+            'enrollments' => $this->enrollmentRepo->findForParticipants($participant),
             'availablePackages' => $this->enrollmentService->getAvailablePackagesFor($participant)
+        ]);
+    }
+
+    /**
+     * @Route("/enroll")
+     * @Method({"POST"})
+     * @Transactional
+     */
+    public function enroll(Request $request) {
+        $enrollment = $this->enrollmentService
+                           ->createEnrollment($request->get('participant'), $request->get('package'));
+
+        $this->enrollmentRepo->persist($enrollment);
+
+        return $this->redirect('/admin/participants', 302, [
+            'success' => 'Enrollment created successfully'
         ]);
     }
 

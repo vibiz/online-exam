@@ -51,4 +51,8 @@ class Package extends Entity {
     public function getTotalQuestions() {
         return count($this->questions);
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

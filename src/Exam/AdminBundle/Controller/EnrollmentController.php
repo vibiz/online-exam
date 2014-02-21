@@ -81,9 +81,21 @@ class EnrollmentController extends BaseController {
     public function restart(Request $request) {
         $enrollment = $this->enrollmentRepo->find($request->get('id'));
 
+        $this->enrollmentRepo
+             ->persist($enrollment->restart());
 
-        return $this->redirect('/admin/enrollments/all', 302, [
+        return $this->redirect('/admin/enrollments', 302, [
             'success' => 'Enrollment restarted'
+        ]);
+    }
+
+    /**
+     * @Route("/detail/{id}")
+     * @Method({"GET"})
+     */
+    public function showDetail($id) {
+        return $this->render('enrollments/detail.html.twig', [
+            'enrollment' => $this->enrollmentRepo->find($id)
         ]);
     }
 }

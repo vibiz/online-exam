@@ -70,12 +70,6 @@ class Enrollment extends Entity {
         return $this;
     }
 
-    public function getAttemptsFor($questionId) {
-        return $this->attempts->filter(function(Attempt $attempt) use($questionId) {
-            return $attempt->getQuestion()->getId() === $questionId;
-        });
-    }
-
     public function getStartedOn() {
         return $this->startedOn;
     }
@@ -100,15 +94,23 @@ class Enrollment extends Entity {
         return $this->participant;
     }
 
+    public function getAttemptsFor($questionId) {
+        return $this->attempts->filter(function(Attempt $attempt) use($questionId) {
+            return $attempt->getQuestion()->getId() === $questionId;
+        });
+    }
+
     public function getCorrectAnswers() {
-        return count($this->package->getQuestions()->filter(function(Question $question) {
+        return $this->package->getQuestions()->filter(function(Question $question) {
             return $this->getAttemptsFor($question->getId())->last()
                 ? $this->getAttemptsFor($question->getId())->last()->getAnswer() === $question->getAnswer()
                 : false;
-        }));
+        });
     }
 
     public function getScore() {
-        return ($this->getCorrectAnswers() / $this->package->getTotalQuestions()) * 100;
+        return $this->package->getTotalQuestions() === 0
+            ? 0
+            :(count($this->getCorrectAnswers()) / $this->package->getTotalQuestions()) * 100;
     }
 }

@@ -49,4 +49,8 @@ class Attempt extends Entity {
     public function getAnsweredOn() {
         return $this->answeredOn;
     }
+
+    public function isCorrect() {
+        return $this->answer === $this->question->getAnswer();
+    }
 }
