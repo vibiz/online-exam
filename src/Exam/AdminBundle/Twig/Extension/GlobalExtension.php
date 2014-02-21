@@ -28,8 +28,12 @@ class GlobalExtension extends \Twig_Extension {
     public function getGlobals() {
         $enrollments = $this->enrollmentRepo->all();
 
+        if(!$this->session->has('admin')) {
+            return parent::getGlobals();
+        }
+
         return array_merge(parent::getGlobals(), [
-            'admin' => $this->adminRepo->find($this->session->get('admin')),
+            'admin' =>  $this->adminRepo->find($this->session->get('admin')),
             'participantsCount' => $this->participantRepo->count(),
             'packagesCount' => $this->packageRepo->count(),
             'enrollmentsCount' => [

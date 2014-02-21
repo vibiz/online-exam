@@ -35,7 +35,7 @@ class LoginController extends BaseController {
         if($this->session->has('admin')) {
             return $this->redirect('/admin');
         }
-        
+
         return $this->render('front/login.html.twig');
     }
 
