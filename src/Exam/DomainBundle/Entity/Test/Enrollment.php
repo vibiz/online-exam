@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Exam\DomainBundle\Entity\Entity;
 use Exam\DomainBundle\Entity\Test\Question;
 use Exam\DomainBundle\Entity\User\Participant;
+use Exam\WebBundle\Resources\globals\Config;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity
@@ -106,6 +108,61 @@ class Enrollment extends Entity {
                 ? $this->getAttemptsFor($question->getId())->last()->getAnswer() === $question->getAnswer()
                 : false;
         });
+    }
+
+    private function formatSeconds($secondsLeft) {
+
+        $minuteInSeconds = 60;
+        $hourInSeconds = $minuteInSeconds * 60;
+        $dayInSeconds = $hourInSeconds * 24;
+
+        $days = floor($secondsLeft / $dayInSeconds);
+        $secondsLeft = $secondsLeft % $dayInSeconds;
+
+        $hours = floor($secondsLeft / $hourInSeconds);
+        $secondsLeft = $secondsLeft % $hourInSeconds;
+
+        $minutes= floor($secondsLeft / $minuteInSeconds);
+
+        $seconds = $secondsLeft % $minuteInSeconds;
+
+        $timeComponents = array();
+
+        if ($days > 0) {
+            $timeComponents[] = $days . " day" . ($days > 1 ? "s" : "");
+        }
+
+        if ($hours > 0) {
+            $timeComponents[] = $hours . " hour" . ($hours > 1 ? "s" : "");
+        }
+
+        if ($minutes > 0) {
+            $timeComponents[] = $minutes . " minute" . ($minutes > 1 ? "s" : "");
+        }
+
+        if ($seconds > 0) {
+            $timeComponents[] = $seconds . " second" . ($seconds > 1 ? "s" : "");
+        }
+
+        if (count($timeComponents) > 0) {
+            $formattedTimeRemaining = implode(", ", $timeComponents);
+            $formattedTimeRemaining = trim($formattedTimeRemaining);
+        } else {
+            $formattedTimeRemaining = "No time remaining.";
+        }
+
+        return $formattedTimeRemaining;
+    }
+
+    public function getTimeleft($format = true) {
+        $interval = $this->getStartedOn()->diff(new \DateTime('now'));
+
+        $hours   = $interval->format('%h');
+        $minutes = $interval->format('%i');
+
+        if($format) return $this->formatSeconds((Config::TIMELIMIT - ($hours * 60 + $minutes))*60);
+
+        return Config::TIMELIMIT - ($hours * 60 + $minutes);
     }
 
     public function getScore() {

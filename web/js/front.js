@@ -58,7 +58,8 @@
         }
     }
 
-    function startUp() {
+    function startUp() {console.log(new Date().getTime());
+
         $.each($items, function() {
             if($("input:radio[name=opt"+getId($(this))+"]").is(':checked')) {
                 findPalette(getId($(this))).addClass('answered');

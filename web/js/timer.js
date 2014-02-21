@@ -59,5 +59,5 @@
     }
 
     defaults = {
-        limit: 5000
+        limit: $("#sec").val()*60
     }
