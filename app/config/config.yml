@@ -29,6 +29,13 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+services:
+    exam.web.twig_extension:
+      class: Exam\WebBundle\DependencyInjection\TwigExtension
+      arguments: [@loginService, @enrollmentService]
+      tags:
+          - { name: twig.extension }
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"

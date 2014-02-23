@@ -16,11 +16,10 @@
 
     $items = $(".question-container>li");
     $paletteItems = $(".palette-container>li");
-
     currentId = getId($items.first().addClass('active'));
 
     startUp();
-    checkControlState();
+
 
     $("#controller-prev").click(function() {
         fillPalette(currentId);
@@ -35,10 +34,6 @@
     $("#controller-next").on('click', function() {
         fillPalette(currentId);
 
-        if(getId(getQuestion())==1) {
-            alert(1);
-        }
-
         $question = getQuestion().next();
         currentId = getId(getQuestion().next().addClass('active'));
         $items.not($question).removeAttr('class');
@@ -52,19 +47,30 @@
         post(currentId, getId($(this)));
     });
 
+    function checkPaletteContainer() {
+        var $curentPalette = findPalette(getId(getQuestion()));
+
+        if(!$curentPalette.parent('ul').hasClass('active')) {
+            $active = $curentPalette.parent('ul').addClass('active');
+            $(".palette-container").not($active).removeClass('active');
+        }
+    }
+
     function fillPalette(id) {
         if($("input:radio[name=opt"+id+"]").is(':checked') == false) {
             findPalette(id).addClass('skipped');
         }
     }
 
-    function startUp() {console.log(new Date().getTime());
-
+    function startUp() {
+        $(".palette-container").first().addClass('active');
         $.each($items, function() {
             if($("input:radio[name=opt"+getId($(this))+"]").is(':checked')) {
                 findPalette(getId($(this))).addClass('answered');
             }
         });
+
+        checkControlState();
     }
 
     function checkControlState() {
@@ -82,11 +88,14 @@
 
         $(".question-count").html("Exam Question - "+getId(getQuestion())+"/"+getTotalQuestion());
 
+        checkPaletteContainer();
+
         checkPaletteState();
     }
 
     function checkPaletteState() {
         var curentPalette = findPalette(getId(getQuestion())).addClass('current');
+
         $paletteItems.not(curentPalette).removeClass('current');
     }
 

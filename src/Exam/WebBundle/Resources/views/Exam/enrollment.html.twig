@@ -16,8 +16,8 @@
             {% if all %}
                 {% for enrollment in all %}
                 <tr>
-                    <td>{{ enrollment.package.name }}</td>
-                    <td>{{ enrollment.startedOn and (enrollment.finishedOn == null) ? 'Progress' : 'Not Taken' }}</td>
+                    <td style="text-transform: uppercase">{{ enrollment.package.name }}</td>
+                    <td><span class="label {{ enrollment.startedOn and (enrollment.finishedOn == null) ? 'successfull' : 'secondary' }} label-full">{{ enrollment.startedOn and (enrollment.finishedOn == null) ? 'on progress' : 'not taken' }}</span></td>
                     <td><span class="label alert label-full">{{ enrollment.timeleft }}</span></td>
                     <td><a href="/exam/{{ enrollment.id }}" target="_self" onclick="return confirm('Start Exam?');" class="button tiny radius no-margin">Start Exam</a></td>
                 </tr>

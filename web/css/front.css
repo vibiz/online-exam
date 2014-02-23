@@ -34,7 +34,9 @@ fieldset{
     vertical-align: sub; font-family: sans-serif }
 .action { text-align: center }
 .palette-container {
+    display: none;
     list-style: none; }
+.palette-container.active { display: inline !important; }
 .palette-container>li {
     width: 30px;
     height: 30px;
@@ -84,9 +86,11 @@ fieldset{
     top: 20%; }
 
 legend { background: transparent !important; }
-input[type="file"], input[type="checkbox"], input[type="radio"], select { vertical-align: sub; }
+input[type="file"], input[type="checkbox"],
+input[type="radio"], select { vertical-align: sub; }
 .no-padding { padding: 0 !important; }
 .centered { text-align: center; }
 .saythanks>p { font-size: 13px; }
 .martop { margin-top: 20px; }
 .label-full { width: 100%; }
+ul { margin-left: 0 }

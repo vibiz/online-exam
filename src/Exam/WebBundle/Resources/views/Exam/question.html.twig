@@ -52,11 +52,19 @@
         <div class="medium-4 columns">
             <fieldset>
                 <legend>Question Palette</legend>
-                <ul class="palette-container">
-                    {% for i in 1..28 %}
+                {% set eachblock = questions.count/divisor %}
+
+                {% for x in 1..eachblock %}
+                <ul class="palette-container" data-id="{{ x }}">
+                    {% set start = x == 1 ? x : (x-1)*divisor+1 %}
+                    {% set end = x == 1 ? divisor : start+divisor-1 %}
+
+                    {% for i in start..end %}
                         <li data-id={{ i }}>{{ i }}</li>
                     {% endfor %}
                 </ul>
+               {% endfor %}
+               <input type="hidden" value="{{ eachblock }}" id="eachblock" />
             </fieldset>
             <div class="palette-information clearfix">
                 <table>

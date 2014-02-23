@@ -13,7 +13,9 @@
     };
 
     function show(tok) {
-        document.getElementById('timer').innerHTML = tok;
+        if($("#timer").length) {
+            document.getElementById('timer').innerHTML = tok;
+        }
     }
 
     function formater(number) {
