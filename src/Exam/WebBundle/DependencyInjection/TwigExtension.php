@@ -24,7 +24,8 @@ class TwigExtension extends \Twig_Extension {
     public function getGlobals() {
         return array(
             "timer" => ($this->loginService->isLogin() and $this->enrollmentService->hasEnrollment()) ? $this->enrollmentService->getEnrollment()->getTimeleft(false) : 'null',
-            "participant" => $this->loginService->isLogin() ? $this->loginService->getCurrentParticipant() : null
+            "participant" => $this->loginService->isLogin() ? $this->loginService->getCurrentParticipant() : null,
+            "divisor" => Config::DIVISOR
         );
     }
 
