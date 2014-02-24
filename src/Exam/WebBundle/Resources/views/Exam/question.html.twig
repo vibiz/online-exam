@@ -52,12 +52,17 @@
         <div class="medium-4 columns">
             <fieldset>
                 <legend>Question Palette</legend>
-                {% set eachblock = questions.count/divisor %}
+                {% set eachblock = (questions.count/divisor) | ceil %}
 
                 {% for x in 1..eachblock %}
                 <ul class="palette-container" data-id="{{ x }}">
                     {% set start = x == 1 ? x : (x-1)*divisor+1 %}
                     {% set end = x == 1 ? divisor : start+divisor-1 %}
+
+                    {% if loop.last %}
+                        {% set end = (questions.count - ((x-1)*divisor))+((x-1)*divisor) %}
+                    {% endif %}
+
                     {% for i in start..end %}
                         <li data-id={{ i }}>
                             <a href="javascript:void(0);" class="palette-item">{{ i }}</a>
