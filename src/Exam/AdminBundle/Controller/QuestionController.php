@@ -3,7 +3,10 @@
 namespace Exam\AdminBundle\Controller;
 
 use Exam\AopBundle\Transactional;
+use Exam\DomainBundle\Entity\Test\Option;
+use Exam\DomainBundle\Entity\Test\Question;
 use Exam\DomainBundle\Repository\OptionRepository;
+use Exam\DomainBundle\Repository\PackageRepository;
 use Exam\DomainBundle\Repository\QuestionRepository;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,14 +19,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class QuestionController extends BaseController {
     private $questionRepo;
+    private $packageRepo;
     private $optionRepo;
 
     /**
      * @InjectParams
      */
-    public function __construct(QuestionRepository $questionRepo, OptionRepository $optionRepo) {
+    public function __construct(QuestionRepository $questionRepo, OptionRepository $optionRepo, PackageRepository $packageRepo) {
         $this->questionRepo = $questionRepo;
         $this->optionRepo = $optionRepo;
+        $this->packageRepo = $packageRepo;
     }
 
     /**

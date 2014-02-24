@@ -99,12 +99,18 @@ class PackageController extends BaseController {
                 $question->addOption(new Option($option));
             }
 
+            if($request->get('answer')) {
+                
+            }
+
             $package->addQuestion($question);
         }
 
         $this->packageRepo->persist($package);
 
-        return $this->redirect('/admin/packages');
+        return $this->redirect($request->server->get('HTTP_REFERER'), 302, [
+            'success' => 'Question added'
+        ]);
     }
 
     /**
