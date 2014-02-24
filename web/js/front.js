@@ -41,6 +41,17 @@
         checkControlState();
     });
 
+    $(".palette-item").on('click', function() {
+        currentId = getId($(this).parent());
+        fillPalette(currentId);
+
+        $question = getQuestion();
+        currentId = getId($question.addClass('active'));
+        $items.not($question).removeAttr('class');
+
+        checkControlState();
+    });
+
     $("input[type='radio']").change(function(){
         findPalette(currentId).removeClass('skipped').addClass('answered');
 
