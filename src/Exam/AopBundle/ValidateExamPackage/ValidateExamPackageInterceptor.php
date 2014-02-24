@@ -34,7 +34,7 @@ class ValidateExamPackageInterceptor implements MethodInterceptorInterface {
      */
     function intercept(MethodInvocation $invocation)
     {
-        $this->enrollService->validateEnrollmentTime();
+        $this->enrollService->validateExpiredEnrollments();
 
         $result = $invocation->proceed();
 

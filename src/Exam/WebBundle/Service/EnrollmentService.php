@@ -175,7 +175,7 @@ class EnrollmentService {
         return new Enrollment($participant, $package);
     }
 
-    public function validateEnrollmentTime() {
+    public function validateExpiredEnrollments() {
         foreach($this->getAvailableEnrollments() as $enrollment) {
             if($enrollment->isStarted() and !$enrollment->isFinished()) {
                 if($enrollment->getTimeleft(false) <= 0) {
