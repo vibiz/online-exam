@@ -15,7 +15,7 @@ use JMS\DiExtraBundle\Annotation\Inject;
  * @Service("validate_interceptor")
  */
 class ValidateExamPackageInterceptor implements MethodInterceptorInterface {
-    private $enrollService, $container;
+    private $enrollService;
     /**
      * @InjectParams({
      *      "enrollService" = @Inject("enrollmentService")
