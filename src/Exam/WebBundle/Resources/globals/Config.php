@@ -11,7 +11,7 @@ namespace Exam\WebBundle\Resources\globals;
 
 class Config {
     //minutes
-    CONST TIMELIMIT = 120;
+    CONST TIMELIMIT = 60;
 
     //palette
     CONST DIVISOR = 2;
