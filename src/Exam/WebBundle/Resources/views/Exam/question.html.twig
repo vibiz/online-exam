@@ -10,14 +10,15 @@
                     <div class="panel panel-full">
                        <ul class="question-container">
                            {% for question in questions %}
+                               {% set index = loop.index %}
                                {% set attempt = enrollment.attemptsFor(question.id) | reverse | first %}
-                           <li data-id={{ loop.index }} data-question={{ question.id }}>
+                           <li data-id={{ index }} data-question={{ question.id }}>
                                <p>{{ question.description }}</p>
 
                                <div class="choose">
                                    <label>Choose Your Answer : </label>
                                     {% for option in question.options %}
-                                        {% set opt = "opt"~question.id %}
+                                        {% set opt = "opt"~index %}
                                         <label for="{{ opt~option.id }}">
                                             <input type="radio" name="{{ opt }}" value="{{ option.description }}" id="{{ opt~option.id }}" data-id="{{ option.id }}" {{ not attempt?: not(option.id == attempt.answer.id) ? '' : 'checked' }}> {{ option.description }}
                                         </label>

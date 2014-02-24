@@ -35,9 +35,10 @@ timer.start();
     });
 
     $(".palette-item").on('click', function() {
-        currentId = getId($(this).parent());
-        fillPalette(currentId);
+        var curentPalette = findPalette(getId(getQuestion())).addClass('current');
+        fillPalette(getId(curentPalette));
 
+        currentId = getId($(this).parent());
         $question = getQuestion();
         currentId = getId($question.addClass('active'));
         $items.not($question).removeAttr('class');
@@ -45,7 +46,7 @@ timer.start();
         checkControlState();
     });
 
-    $("input[type='radio']").change(function(){
+    $("input[type='radio']").change(function() {
         findPalette(currentId).removeClass('skipped').addClass('answered');
 
         post($(this).parents('li').data('question'), getId($(this)));
@@ -60,7 +61,7 @@ timer.start();
         }
     }
 
-    function fillPalette(id) {
+    function fillPalette(id) {console.log(id);
         if($("input:radio[name=opt"+id+"]").is(':checked') == false) {
             findPalette(id).addClass('skipped');
         }
@@ -72,7 +73,8 @@ timer.start();
 
         $.each($items, function() {
             if($("input:radio[name=opt"+getId($(this))+"]").is(':checked')) {
-                findPalette(getId($(this))).addClass('answered');
+                console.log($(this).data('id'));
+                findPalette($(this).data('id')).addClass('answered');
             }
         });
 

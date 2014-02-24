@@ -57,7 +57,7 @@ class ExamController extends BaseController {
      * @Method({"GET"})
      */
     public function startExam() {
-        if(!$this->service->isLogin()) return $this->redirect('/login');
+        if(!$this->service->isLogin())  return $this->redirect('/login');
 
         if(!$this->enrollmentService->hasEnrollment()) {
             return $this->render('ExamWebBundle:Exam:enrollment.html.twig', [
