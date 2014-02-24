@@ -32,4 +32,8 @@ class Admin extends Entity {
     public function setName($name) {
         $this->name = $name;
     }
+
+    public function getUser() {
+        return $this->user;
+    }
 }

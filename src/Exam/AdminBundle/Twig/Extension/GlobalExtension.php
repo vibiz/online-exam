@@ -7,6 +7,7 @@ use Exam\DomainBundle\Repository\AdminRepository;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
 use Exam\DomainBundle\Repository\PackageRepository;
 use Exam\DomainBundle\Repository\ParticipantRepository;
+use Exam\WebBundle\Service\ScoringService;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -23,6 +24,14 @@ class GlobalExtension extends \Twig_Extension {
         $this->enrollmentRepo = $enrollmentRepo;
         $this->adminRepo = $adminRepo;
         $this->session = $session;
+    }
+
+    public function getFunctions() {
+        return array_merge(parent::getFunctions(), [
+            new \Twig_SimpleFunction('score', function(Enrollment $enrollment) {
+                return ScoringService::score($enrollment);
+            })
+        ]);
     }
 
     public function getGlobals() {

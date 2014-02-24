@@ -24,7 +24,7 @@ class AuthorizeInterceptor implements MethodInterceptorInterface {
 
     function intercept(MethodInvocation $invocation) {
         if(!$this->session->has('admin')) {
-            $this->session->getFlashBag()->add('error', 'Not authorized');
+            $this->session->getFlashBag()->add('error', 'Not authorized. Please sign-in.');
 
             return new RedirectResponse('/admin/login');
         }
