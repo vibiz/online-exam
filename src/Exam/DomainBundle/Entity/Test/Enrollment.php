@@ -169,9 +169,24 @@ class Enrollment extends Entity {
         return $this->formatSeconds(0);
     }
 
-    public function getScore() {
-        return $this->package->getTotalQuestions() === 0
-            ? 0
-            :(count($this->getCorrectAnswers()) / $this->package->getTotalQuestions()) * 100;
+    /**
+     * Return work time for an enrollment.
+     * Will return 0 if enrollment is not started or finished
+     * @param bool $inSeconds Return value (in seconds or in minutes), default to minutes
+     * @return float|int
+     */
+    public function getTotalWorkTime($inSeconds = false) {
+        if(!$this->isStarted() or !$this->isFinished()) {
+            return 0;
+        }
+
+        $start = strtotime($this->startedOn);
+        $finish = strtotime($this->finishedOn);
+
+        $workTimeInSeconds = $finish - $start;
+
+        return $inSeconds
+            ? $workTimeInSeconds
+            : $workTimeInSeconds / 60;
     }
 }

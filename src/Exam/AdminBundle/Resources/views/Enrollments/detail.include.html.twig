@@ -22,7 +22,7 @@
                         <td>{{ enrollment.createdOn | date('d-M-Y') }}</td>
                         <td>{{ enrollment.startedOn ? enrollment.startedOn | date('d-M-Y H:i:s') : '-' }}</td>
                         <td>{{ enrollment.finishedOn ? enrollment.finishedOn | date('d-M-Y H:i:s') : '-' }}</td>
-                        <td>{{ enrollment.score }} <span class="pull-right">({{ enrollment.correctAnswers | length }} of {{ enrollment.package.totalQuestions }})</span></td>
+                        <td>{{ score(enrollment) }} <span class="pull-right">({{ enrollment.correctAnswers | length }} of {{ enrollment.package.totalQuestions }})</span></td>
                         <td>
                             {% if enrollment.isFinished %}
                                 <a href="/admin/enrollments/detail/{{ enrollment.id }}" id="detail" class="btn btn-mini pull-right" data="{{ participant.id }}">

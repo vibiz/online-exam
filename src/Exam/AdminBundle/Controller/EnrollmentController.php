@@ -68,6 +68,12 @@ class EnrollmentController extends BaseController {
     public function remove(Request $request) {
         $enrollment = $this->enrollmentRepo->find($request->get('id'));
 
+        if($enrollment->isStarted()) {
+            return $this->redirect($request->server->get('HTTP_REFERER'), 302, [
+                'error' => 'Enrollment is already started and cannot be removed.'
+            ]);
+        }
+
         $this->enrollmentRepo->remove($enrollment);
 
         return $this->redirect('/admin/enrollments/all', 302, [
