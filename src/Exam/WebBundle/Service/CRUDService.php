@@ -37,4 +37,7 @@ class CRUDService {
         $this->em->persist($entity);
     }
 
+    public function save(Entity $entity = null) {
+        $this->em->flush($entity);
+    }
 }

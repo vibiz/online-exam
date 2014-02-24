@@ -59,7 +59,9 @@
                     {% set start = x == 1 ? x : (x-1)*divisor+1 %}
                     {% set end = x == 1 ? divisor : start+divisor-1 %}
                     {% for i in start..end %}
-                        <li data-id={{ i }}>{{ i }}</li>
+                        <li data-id={{ i }}>
+                            <a href="javascript:void(0);" class="palette-item">{{ i }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
                {% endfor %}

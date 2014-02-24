@@ -174,4 +174,17 @@ class EnrollmentService {
 
         return new Enrollment($participant, $package);
     }
+
+    public function validateExpiredEnrollments() {
+        foreach($this->getAvailableEnrollments() as $enrollment) {
+            if($enrollment->isStarted() and !$enrollment->isFinished()) {
+                if($enrollment->getTimeleft(false) <= 0) {
+                    $enrollment->finish();
+
+                    $this->crudService->update($enrollment);
+                }
+            }
+        }
+        $this->crudService->save();
+    }
 }

@@ -47,6 +47,8 @@ fieldset{
     background-color: #c0c0c0;
     text-align: center;
     border: 1px solid #333333; }
+.palette-container>li>a.palette-item {
+    color: #333; }
 .current { border: 1px solid red !important; }
 .answered { background-color: #43ac6a !important; }
 .skipped { background-color: #ffff00 !important;}
@@ -79,8 +81,6 @@ fieldset{
 .no-margin { margin: 0 !important; }
 .push-right { float: right }
 .push-left { float: left }
-
-
 .login-form {
     position: relative;
     top: 20%; }

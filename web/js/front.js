@@ -5,15 +5,10 @@
  * Time: 8:23 AM
  * To change this template use File | Settings | File Templates.
  */
+var timer = new Timer();
+timer.start();
 
 (function(window, document, $) {
-    options = {
-        divisor: 2
-    }
-
-    var timer = new Timer();
-    timer.start()
-
     $items = $(".question-container>li");
     $paletteItems = $(".palette-container>li");
     currentId = getId($items.first().addClass('active'));
@@ -36,6 +31,17 @@
 
         $question = getQuestion().next();
         currentId = getId(getQuestion().next().addClass('active'));
+        $items.not($question).removeAttr('class');
+
+        checkControlState();
+    });
+
+    $(".palette-item").on('click', function() {
+        currentId = getId($(this).parent());
+        fillPalette(currentId);
+
+        $question = getQuestion();
+        currentId = getId($question.addClass('active'));
         $items.not($question).removeAttr('class');
 
         checkControlState();
