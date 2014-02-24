@@ -5,11 +5,9 @@ namespace Exam\AopBundle\ValidateExamPackage;
 use CG\Proxy\MethodInterceptorInterface;
 use CG\Proxy\MethodInvocation;
 use Exam\WebBundle\Service\EnrollmentService;
-use Exam\AopBundle\Transactional;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use JMS\DiExtraBundle\Annotation\Inject;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class ValidateExamPackageInterceptor
