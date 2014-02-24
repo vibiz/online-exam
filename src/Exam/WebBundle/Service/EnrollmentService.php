@@ -109,12 +109,11 @@ class EnrollmentService {
 
     public function getAvailableEnrollments() {
         return $this->enrollmentRepo->createQueryBuilder('enroll')
-            ->where('enroll.participant = :p')
-            ->andWhere('enroll.startedOn IS NULL and enroll.finishedOn IS NULL')
-            ->orWhere('enroll.startedOn IS NOT NULL and enroll.finishedOn IS NULL')
+            ->where('enroll.participant = :p and (enroll.startedOn IS NULL and enroll.finishedOn IS NULL or enroll.startedOn IS NOT NULL and enroll.finishedOn IS NULL)')
             ->setParameter('p', $this->loginService->getCurrentParticipant())
             ->getQuery()
             ->execute();
+
     }
 
     public function startEnrollment($enrollmentId) {
