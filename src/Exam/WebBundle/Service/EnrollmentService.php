@@ -185,5 +185,6 @@ class EnrollmentService {
                 }
             }
         }
+        $this->crudService->save();
     }
 }

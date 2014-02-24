@@ -20,13 +20,11 @@ class ValidateExamPackageInterceptor implements MethodInterceptorInterface {
     private $enrollService, $container;
     /**
      * @InjectParams({
-     *      "enrollService" = @Inject("enrollmentService"),
-     *      "container" = @Inject("service_container")
+     *      "enrollService" = @Inject("enrollmentService")
      * })
      */
-    public function __construct(EnrollmentService $enrollService, Container $container) {
+    public function __construct(EnrollmentService $enrollService) {
         $this->enrollService = $enrollService;
-        $this->container = $container;
     }
 
     /**
@@ -39,7 +37,6 @@ class ValidateExamPackageInterceptor implements MethodInterceptorInterface {
     function intercept(MethodInvocation $invocation)
     {
         $this->enrollService->validateEnrollmentTime();
-        $this->container->get('doctrine')->getManager()->flush();
 
         $result = $invocation->proceed();
 
