@@ -48,7 +48,7 @@ timer.start();
     $("input[type='radio']").change(function(){
         findPalette(currentId).removeClass('skipped').addClass('answered');
 
-        post(currentId, getId($(this)));
+        post($(this).parents('li').data('question'), getId($(this)));
     });
 
     function checkPaletteContainer() {
