@@ -109,12 +109,11 @@ class EnrollmentService {
 
     public function getAvailableEnrollments() {
         return $this->enrollmentRepo->createQueryBuilder('enroll')
-            ->where('enroll.participant = :p')
-            ->andWhere('enroll.startedOn IS NULL and enroll.finishedOn IS NULL')
-            ->orWhere('enroll.startedOn IS NOT NULL and enroll.finishedOn IS NULL')
+            ->where('enroll.participant = :p and (enroll.startedOn IS NULL and enroll.finishedOn IS NULL or enroll.startedOn IS NOT NULL and enroll.finishedOn IS NULL)')
             ->setParameter('p', $this->loginService->getCurrentParticipant())
             ->getQuery()
             ->execute();
+
     }
 
     public function startEnrollment($enrollmentId) {
@@ -176,15 +175,17 @@ class EnrollmentService {
     }
 
     public function validateExpiredEnrollments() {
-        foreach($this->getAvailableEnrollments() as $enrollment) {
-            if($enrollment->isStarted() and !$enrollment->isFinished()) {
-                if($enrollment->getTimeleft(false) <= 0) {
-                    $enrollment->finish();
+        if($this->loginService->isLogin()) {
+            foreach($this->getAvailableEnrollments() as $enrollment) {
+                if($enrollment->isStarted() and !$enrollment->isFinished()) {
+                    if($enrollment->getTimeleft(false) <= 0) {
+                        $enrollment->finish();
 
-                    $this->crudService->update($enrollment);
+                        $this->crudService->update($enrollment);
+                    }
                 }
             }
+            $this->crudService->save();
         }
-        $this->crudService->save();
     }
 }
