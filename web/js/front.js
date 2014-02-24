@@ -11,10 +11,8 @@ timer.start();
 (function(window, document, $) {
     $items = $(".question-container>li");
     $paletteItems = $(".palette-container>li");
-    currentId = getId($items.first().addClass('active'));
 
     startUp();
-
 
     $("#controller-prev").click(function() {
         fillPalette(currentId);
@@ -69,7 +67,9 @@ timer.start();
     }
 
     function startUp() {
+        currentId = getId($items.first().addClass('active'));
         $(".palette-container").first().addClass('active');
+
         $.each($items, function() {
             if($("input:radio[name=opt"+getId($(this))+"]").is(':checked')) {
                 findPalette(getId($(this))).addClass('answered');
