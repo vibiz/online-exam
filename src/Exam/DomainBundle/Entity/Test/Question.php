@@ -12,7 +12,7 @@ use Exam\DomainBundle\Entity\Test\Option;
  */
 class Question extends Entity {
     /**
-     * @ORM\ManyToMany(targetEntity="Option", cascade={"persist"}, inversedBy="questions")
+     * @ORM\ManyToMany(targetEntity="Option", cascade={"persist"}, inversedBy="question")
      */
     private $options;
 
