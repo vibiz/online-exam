@@ -43,8 +43,9 @@
                                         <p>Remove enrollment?</p>
                                     </div>
                                     <div class="modal-footer">
+                                        <form></form>
                                         <form action="/admin/enrollments/remove" method="post">
-                                            <input type="hidden" name="id" value="{{ enrollment.id }}">
+                                            <input type="hidden" name="id" value="{{ enrollment.id }}" />
                                             <button data-dismiss="modal" class="btn btn-danger btn-primary" type="submit">Remove</button>
                                             <a data-dismiss="modal" class="btn" href="#">Cancel</a>
                                         </form>
