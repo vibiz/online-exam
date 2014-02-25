@@ -68,7 +68,11 @@ fieldset{
     color: #333; }
 .palette-information>table {
     width: 100%;
-    background-color: snow; }
+    background-color: snow;
+    margin-bottom: 0;
+    text-align: center;
+    margin: auto; }
+.palette-item:hover { cursor: pointer; }
 .current { border: 1px solid red !important; }
 .answered { background-color: #43ac6a !important; }
 .skipped { background-color: #ffff00 !important;}
@@ -76,10 +80,6 @@ fieldset{
 .box {
     width: 16px;
     height: 16px; }
-.palette-information>table {
-    margin-bottom: 0;
-    text-align: center;
-    margin: auto; }
 .relative-container { position: relative; }
 .frozen {
     position: absolute;

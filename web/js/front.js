@@ -38,7 +38,7 @@ timer.start();
         var curentPalette = findPalette(getId(getQuestion())).addClass('current');
         fillPalette(getId(curentPalette));
 
-        currentId = getId($(this).parent());
+        currentId = getId($(this));
         $question = getQuestion();
         currentId = getId($question.addClass('active'));
         $items.not($question).removeAttr('class');
@@ -152,7 +152,5 @@ timer.start();
             }
         });
     }
-
 $("body").fadeIn();
-
 })(window, document, jQuery);

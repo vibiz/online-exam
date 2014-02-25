@@ -64,8 +64,8 @@
                         {% endif %}
 
                         {% for i in start..end %}
-                            <li data-id={{ i }}>
-                                <a href="javascript:void(0);" class="palette-item">{{ i }}</a>
+                            <li class="palette-item" data-id={{ i }}>
+                                {{ i }}
                             </li>
                         {% endfor %}
                     </ul>
