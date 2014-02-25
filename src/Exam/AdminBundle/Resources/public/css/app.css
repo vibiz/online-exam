@@ -269,3 +269,9 @@ tr.masked {
     border-radius: 0;
     -webkit-border-radius: 0;
 }
+input[type="radio"].switch {
+    display: none;
+}
+div#expand {
+    margin-right: 10px;
+}

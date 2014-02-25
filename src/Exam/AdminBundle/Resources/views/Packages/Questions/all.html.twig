@@ -11,7 +11,11 @@
             <div class="block-content collapse in">
                 <div class="span12">
                     <fieldset>
-                        <legend>{{ package.name }}</legend>
+                        <legend>
+                            {{ package.name }}
+                            <div id="collapse" class="btn btn-primary pull-right"><i class="icon-chevron-up icon-white"></i> Collapse All</div>
+                            <div id="expand" class="btn btn-primary pull-right"><i class="icon-chevron-down icon-white"></i> Expand All</div>
+                        </legend>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -25,7 +29,7 @@
                                     <td class="span1">{{ question.id }}</td>
                                     <td>
                                         <div>
-                                            {{ question.description }}
+                                            {{ question.description | raw }}
                                             <i class="expand icon-chevron-down pull-right" rel="{{ question.id }}"></i>
                                         </div>
                                         <div>
@@ -91,14 +95,29 @@
                 });
             });
 
-            $(".expand").on("click", function() {
-                var $this = $(this);
-                var $table = $("table#" + $this.attr("rel"));
+            var toggleExpand = function($el) {
+                var $table = $("table#" + $el.attr("rel"));
 
-                $this.toggleClass("icon-chevron-down");
-                $this.toggleClass("icon-chevron-up");
+                $el.toggleClass("icon-chevron-down");
+                $el.toggleClass("icon-chevron-up");
 
                 $table.toggle();
+            };
+
+            $(".expand").on("click", function() {
+                toggleExpand($(this));
+            });
+
+            $("div#expand").on("click", function() {
+                var $expands = $(".expand");
+
+                $.each($expands, function() { toggleExpand($(this)); })
+            });
+
+            $("div#collapse").on("click", function() {
+                var $expands = $(".expand");
+
+                $.each($expands, function() { toggleExpand($(this)); })
             });
         });
     </script>

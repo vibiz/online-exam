@@ -12,7 +12,7 @@ abstract class BaseRepository extends EntityRepository {
     protected $em;
 
     public function __construct(EntityManager $em) {
-        (new Schemator($em))->refreshSchema();
+        //(new Schemator($em))->refreshSchema();
         parent::__construct($em, new ClassMetadata(self::getClass()));
     }
 

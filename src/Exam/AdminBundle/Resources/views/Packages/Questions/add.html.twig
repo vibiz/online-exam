@@ -5,6 +5,7 @@
     {% stylesheets
         '@ExamAdminBundle/Resources/public/css/wysiwyg-color.css'
         '@ExamAdminBundle/Resources/public/css/bootstrap/bootstrap-wysihtml5.css'
+        '@ExamAdminBundle/Resources/public/css/bootstrap/bootstrap-switch.css'
         '@ExamAdminBundle/Resources/public/css/uniform.default.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
@@ -21,7 +22,7 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form class="form-horizontal" action="/admin/packages/edit" method="post">
+                    <form class="form-horizontal" action="/admin/packages/questions/add" method="post">
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="description">Package</label>
@@ -34,15 +35,15 @@
                                     <textarea name="question-description" id="description" class="input-xlarge textarea" placeholder="Enter question description..." style="width: 600px; height: 100px"></textarea>
                                 </div>
                             </div>
+                            {% for idx in 0..4 %}
                             <div class="control-group">
+                                {% if loop.first %}
                                 <label class="control-label">Options</label>
+                                {% endif %}
                                 <div class="controls">
                                     <input type="text" name="options[]" class="span6 last"/>
+                                    <input type="radio" name="answer" class="span1 switch" value="{{ loop.index - 1 }}" data-label-text="<span class='fa fa-check fa-lg'></span>" data-on-text="<span class='fa fa-check-circle-o fa-lg'></span>" data-off-text="<span class='fa fa-circle-o fa-lg'></span>">
                                 </div>
-                            </div>
-                            {% for idx in 0..3 %}
-                            <div class="control-group">
-                                <div class="controls"><input type="text" name="options[]" class="span6 last"/></div>
                             </div>
                             {% endfor %}
                             <div class="form-actions">
@@ -62,11 +63,23 @@
     {{ parent() }}
     {% javascripts
         '@ExamAdminBundle/Resources/public/js/wysihtml5.js'
+        '@ExamAdminBundle/Resources/public/js/bootstrap/bootstrap-switch.js'
         '@ExamAdminBundle/Resources/public/js/bootstrap/bootstrap-wysihtml5.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
-        $('.textarea').wysihtml5();
+        {% stylesheets '@ExamAdminBundle/Resources/public/css/wysiwyg-color.css' %}
+            $('.textarea').wysihtml5({
+                stylesheets: ['{{ asset_url }}']
+            });
+        {% endstylesheets %}
+
+        var $radios = $('input[type="radio"].switch');
+
+        $radios.bootstrapSwitch();
+        $radios.on('switch-change', function () {
+            $radios.bootstrapSwitch('toggleRadioState');
+        });
     </script>
 {% endblock %}
