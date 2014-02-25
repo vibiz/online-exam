@@ -162,10 +162,11 @@ class Enrollment extends Entity {
             $minutes = $interval->format('%i');
             $seconds = $interval->format('%s');
 
-            if($format) return $this->formatSeconds((Config::TIMELIMIT - ($hours * 60 + $minutes))*60);
+            $result = ((Config::TIMELIMIT - ($hours * 60 + $minutes))-1)*60-$seconds;
 
-            //return in seconds
-            return ((Config::TIMELIMIT - ($hours * 60 + $minutes))-1)*60-$seconds;
+            if($format) return $this->formatSeconds($result);
+
+            return $result;
         }
 
         return $this->formatSeconds(0);
