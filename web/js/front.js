@@ -151,6 +151,8 @@ timer.start();
                 $("#controller-next").click();
             }
         });
-    } 
+    }
+
+$("body").fadeIn();
 
 })(window, document, jQuery);
