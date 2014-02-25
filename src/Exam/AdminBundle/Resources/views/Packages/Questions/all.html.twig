@@ -35,7 +35,7 @@
                                         <div>
                                             <form class="ajax" action="/admin/questions/answer" method="post">
                                                 <input type="hidden" name="id" value="{{ question.id }}" />
-                                                <table id="{{ question.id }}" class="table table-bordered sub-table">
+                                                <table id="{{ loop.index }}" class="table table-bordered sub-table">
                                                     <thead>
                                                     <tr>
                                                         <th>Option &nbsp;&nbsp;&nbsp;<em>Choose correct option on the right column</em></th>
