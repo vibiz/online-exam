@@ -14,6 +14,9 @@ button[disabled].secondary:focus,
 .button[disabled].secondary:hover,
 .button[disabled].secondary:focus{
     color: #c0c0c0; }
+.tiny-custom {
+    padding-top: 0.425rem !important;
+    padding-bottom: 0.425rem !important; }
 table tr.even, table tr.alt, table tr:nth-of-type(even){ background-color: transparent }
 .panel-full {
     min-height: 350px; }
