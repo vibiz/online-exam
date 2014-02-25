@@ -37,7 +37,9 @@ class EnrollmentController extends BaseController {
      */
     public function showAll() {
         return $this->render('/enrollments/all.html.twig', [
-            'enrollments' => $this->enrollmentRepo->all()
+            'enrollments' => $this->enrollmentRepo->findAll([], [
+                'enrolledOn' => 'desc'
+            ])
         ]);
     }
 
