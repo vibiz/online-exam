@@ -1,3 +1,19 @@
+body { margin-top: 10px; }
+button { box-shadow: 0px 0px 5px 0px; }
+button.disabled.secondary,
+button[disabled].secondary,
+.button.disabled.secondary,
+.button[disabled].secondary,
+.button.disabled.secondary,
+button.disabled.secondary:hover,
+button.disabled.secondary:focus,
+button[disabled].secondary:hover,
+button[disabled].secondary:focus,
+.button.disabled.secondary:hover,
+.button.disabled.secondary:focus,
+.button[disabled].secondary:hover,
+.button[disabled].secondary:focus{
+    color: #c0c0c0; }
 table tr.even, table tr.alt, table tr:nth-of-type(even){ background-color: transparent }
 .panel-full {
     min-height: 350px; }
@@ -24,15 +40,16 @@ fieldset{
 .user>form { display: inline-block; }
 .time { text-align: center; }
 .time>img {
-    height: 50px;
+    height: 38px;
     margin-left: -0.5rem }
 .time>label {
     display: inline-block;
-    font-size: 35px;
+    font-size: 28px;
     font-weight: 700;
     margin-left: 0.2rem;
     vertical-align: sub; font-family: sans-serif }
 .action { text-align: center }
+.snow-fieldset { background-color: snow }
 .palette-container {
     display: none;
     list-style: none; }
@@ -49,6 +66,9 @@ fieldset{
     border: 1px solid #333333; }
 .palette-container>li>a.palette-item {
     color: #333; }
+.palette-information>table {
+    width: 100%;
+    background-color: snow; }
 .current { border: 1px solid red !important; }
 .answered { background-color: #43ac6a !important; }
 .skipped { background-color: #ffff00 !important;}

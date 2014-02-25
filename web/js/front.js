@@ -94,7 +94,7 @@ timer.start();
             enabled($("#controller-next"));
         }
 
-        $(".question-count").html("Exam Question - "+getId(getQuestion())+"/"+getTotalQuestion());
+        $(".question-count").html(getId(getQuestion())+"/"+getTotalQuestion());
 
         checkPaletteContainer();
 
