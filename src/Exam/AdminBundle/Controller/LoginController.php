@@ -50,6 +50,12 @@ class LoginController extends BaseController {
         ));
         $admin = $this->adminRepo->findOneBy(array('user' => $user));
 
+        if(isset($admin)) {
+            return $this->redirect('/admin/login', 302, [
+                'error' => 'Wrong username or password'
+            ]);
+        }
+
         $this->session->set('admin', $admin->getId());
 
         return $this->redirect('/admin');
