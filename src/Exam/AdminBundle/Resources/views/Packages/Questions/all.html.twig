@@ -29,7 +29,7 @@
                                     <td class="span1">{{ question.id }}</td>
                                     <td>
                                         <div>
-                                            {{ question.description }}
+                                            {{ question.description | raw }}
                                             <i class="expand icon-chevron-down pull-right" rel="{{ question.id }}"></i>
                                         </div>
                                         <div>
