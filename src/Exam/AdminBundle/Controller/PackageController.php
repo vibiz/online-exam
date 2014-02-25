@@ -10,29 +10,40 @@ use Exam\DomainBundle\Entity\Test\Question;
 use Exam\DomainBundle\Repository\EnrollmentRepository;
 use Exam\DomainBundle\Repository\PackageRepository;
 use Exam\DomainBundle\Repository\ParticipantRepository;
+use Exam\DomainBundle\Repository\QuestionRepository;
+use Exam\WebBundle\Service\CRUDService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/admin")
+ * @Route("/admin/packages")
  */
 class PackageController extends BaseController {
     private $packageRepo;
     private $enrollmentRepo;
     private $participantRepo;
+    private $crudService;
 
     /**
-     * @InjectParams
+     * @InjectParams({
+     *      "crudService" = @Inject("CRUDService")
+     * })
      */
-    public function __construct(PackageRepository $packageRepo, EnrollmentRepository $enrollmentRepo, ParticipantRepository $participantRepo) {
+    public function __construct(PackageRepository $packageRepo,
+                                EnrollmentRepository $enrollmentRepo,
+                                ParticipantRepository $participantRepo,
+                                CRUDService $crudService) {
         $this->packageRepo = $packageRepo;
         $this->enrollmentRepo = $enrollmentRepo;
         $this->participantRepo = $participantRepo;
+        $this->crudService = $crudService;
     }
+
     /**
-     * @Route("/packages")
+     * @Route("/")
      * @Method({"GET"})
      */
     public function showAll() {
@@ -42,7 +53,7 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/create")
+     * @Route("/create")
      * @Method({"GET"})
      */
     public function showCreate() {
@@ -50,7 +61,7 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/create")
+     * @Route("/create")
      * @Method({"POST"})
      * @Transactional
      */
@@ -65,7 +76,7 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/{id}/questions")
+     * @Route("/{id}/questions")
      * @Method({"GET"})
      */
     public function showAllQuestions($id) {
@@ -75,7 +86,7 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/{id}/questions/add")
+     * @Route("/{id}/questions/add")
      * @Method({"GET"})
      */
     public function showAddQuestions($id) {
@@ -85,29 +96,33 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/edit")
+     * @Route("/questions/add")
      * @Method({"POST"})
      * @Transactional
-     * @ToDo Quick add answer
      */
-    public function edit(Request $request) {
+    public function addQuestion(Request $request) {
         $package = $this->packageRepo->find($request->get('id'));
+        $question = new Question($request->get('question-description'));
 
-        if($request->get('question-description')) {
-            $question = new Question($request->get('question-description'));
+        foreach($request->get('options') as $idx => $option) {
+            $option = new Option($option);
 
-            foreach($request->get('options') as $option) {
-                $question->addOption(new Option($option));
+            $question->addOption($option);
+
+            if($request->get('answer') == $idx) {
+                $answer = $option;
             }
-
-            if($request->get('answer')) {
-
-            }
-
-            $package->addQuestion($question);
         }
 
-        $this->packageRepo->persist($package);
+        $package->addQuestion($question);
+
+        $this->crudService->save($package);
+
+        if(isset($answer)) {
+            $question->setAnswer($answer->getId());
+        }
+
+        $this->crudService->save($question);
 
         return $this->redirect($request->server->get('HTTP_REFERER'), 302, [
             'success' => 'Question added'
@@ -115,7 +130,7 @@ class PackageController extends BaseController {
     }
 
     /**
-     * @Route("/packages/{id}/enroll")
+     * @Route("/{id}/enroll")
      * @Method({"GET"})
      */
     public function showEnroll($id) {

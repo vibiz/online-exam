@@ -272,3 +272,6 @@ tr.masked {
 input[type="radio"].switch {
     display: none;
 }
+div#expand {
+    margin-right: 10px;
+}
