@@ -65,8 +65,8 @@
                         {% for question in enrollment.package.questions %}
                             {% set lastAttempt = enrollment.getAttemptsFor(question.id) | reverse | first %}
                             <tr class="{% if lastAttempt | length < 1 %}error{% elseif not lastAttempt.isCorrect %}error{% else %}success{% endif %}">
-                                <td>{{ question.description }}</td>
-                                <td>{{ question.answer }}</td>
+                                <td>{{ question.description | raw }}</td>
+                                <td>{{ question.answer | raw }}</td>
                                 <td>{{ lastAttempt ? lastAttempt.answer : '-' }}</td>
                                 <td></td>
                             </tr>
