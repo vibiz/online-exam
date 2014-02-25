@@ -14,5 +14,5 @@ class Config {
     CONST TIMELIMIT = 60;
 
     //palette
-    CONST DIVISOR = 28;
+    CONST DIVISOR = 32;
 } 

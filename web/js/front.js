@@ -38,7 +38,7 @@ timer.start();
         var curentPalette = findPalette(getId(getQuestion())).addClass('current');
         fillPalette(getId(curentPalette));
 
-        currentId = getId($(this).parent());
+        currentId = getId($(this));
         $question = getQuestion();
         currentId = getId($question.addClass('active'));
         $items.not($question).removeAttr('class');
@@ -94,7 +94,7 @@ timer.start();
             enabled($("#controller-next"));
         }
 
-        $(".question-count").html("Exam Question - "+getId(getQuestion())+"/"+getTotalQuestion());
+        $(".question-count").html(getId(getQuestion())+"/"+getTotalQuestion());
 
         checkPaletteContainer();
 
@@ -151,6 +151,6 @@ timer.start();
                 $("#controller-next").click();
             }
         });
-    } 
-
+    }
+$("body").fadeIn();
 })(window, document, jQuery);

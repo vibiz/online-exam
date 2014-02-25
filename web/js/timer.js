@@ -18,10 +18,10 @@
         }
     }
 
-    function formater(number) {
+    function formater(number) {console.log(number);
         if(number % 1 == 0){
             var divisor = 60;
-            var min = Math.floor(number/divisor);
+            var min = Math.floor((number/divisor));
             var sec = doubleZero(Math.floor(number - (min * 60)));
 
             return doubleZero(min)+':'+sec;
@@ -61,5 +61,5 @@
     }
 
     defaults = {
-        limit: $("#sec").val()*60
+        limit: $("#sec").val()
     }
